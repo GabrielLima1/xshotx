@@ -1,0 +1,55 @@
+<%- model_class = Robot -%>
+<!--#428bca-->
+<div class="page-header">
+  <style media="screen">
+    .red{
+      color: red;
+    }
+    .green{
+      color: green;
+    }
+  </style>
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome Robot</th>
+      <th>Buscar</th>
+      <th>Não Buscar</th>
+      <th>Começar</th>
+      <th>Terminar</th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:automatic) %></th>
+      <th>Tipo</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @robots.each do |robot| %>
+      <tr>
+        <td><%= link_to robot.name, robot_path(robot) %></td>
+        <td><%= robot.search %></td>
+        <%if robot.nosearch == ""%><td class="red">  -</td><%else%><td class="red"><%= robot.nosearch %></td><%end%>
+        <td><%= robot.page_finish %></td>
+        <td><%= robot.page_start %></td>
+        <%if robot.status == true%><td class="green">Feito</td><%else%><td class="red">Não Feito</td><%end%>
+        <%if robot.automatic == true%><td class="green">Sim</td><%else%><td class="red" >Não</td><%end%>
+        <td><%= robot.type.name %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_robot_path(robot), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      robot_path(robot),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_robot_path,
+            :class => 'btn btn-primary' %>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  page_start: 1
+  page_finish: 1
+  automatic: false
+  search: MyString
+  status: false
+  nosearch: MyString
+  page_number: 1
+
+two:
+  name: MyString
+  page_start: 1
+  page_finish: 1
+  automatic: false
+  search: MyString
+  status: false
+  nosearch: MyString
+  page_number: 1

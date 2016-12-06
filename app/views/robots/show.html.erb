@@ -1,0 +1,36 @@
+<%- model_class = Robot -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @robot.name %></dd>
+  <dt><strong>Buscar:</strong></dt>
+  <dd><%= @robot.search %></dd>
+  <dt><strong>Não Buscar:</strong></dt>
+  <dd><%= @robot.nosearch %></dd>
+  <dt><strong>Type de Robo:</strong></dt>
+  <dd><%= @robot.type.name %></dd>
+  <dt><strong>Pagina a Começar:</strong></dt>
+  <dd><%= @robot.page_finish %></dd>
+  <dt><strong>Pagina a Terminar:</strong></dt>
+  <dd><%= @robot.page_start %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%if @robot.status == true%><td >Feito</td><%else%><td>Não Feito</td><%end%></dd>
+  <dt><strong><%= model_class.human_attribute_name(:automatic) %>:</strong></dt>
+  <dd><%if @robot.automatic == true%><td >Sim</td><%else%><td>Não</td><%end%></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              robots_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_robot_path(@robot), :class => 'btn btn-default' %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_robot_path,
+            :class => 'btn btn-primary' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              robot_path(@robot),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

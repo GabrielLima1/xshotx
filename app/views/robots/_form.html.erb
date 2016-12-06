@@ -1,0 +1,18 @@
+<%= simple_form_for @robot, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name, :placeholder => "Nome Para Identificar seu Robo"%>
+  <%= f.input :search, :placeholder => "Palavra que o Robo de Buscar"%>
+  <%= f.input :nosearch, :placeholder => "Palavra que o Robo NÃO deve Buscar | Separar Palavras por Virgula!"%>
+  <%= f.association :type %>
+  <%= f.input :page_start %>
+  <%= f.input :page_finish %>
+  <label class="checkbox-inline">
+    <%= f.input :automatic %>
+  </label>
+    <label class="checkbox-inline">
+      <%= f.input :status %>
+  </label>
+  <br>
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                robots_path, :class => 'btn btn-default' %>
+<% end %>

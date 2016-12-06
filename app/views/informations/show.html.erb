@@ -1,0 +1,19 @@
+<%- model_class = Information -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:cep) %>:</strong></dt>
+  <dd><%= @information.cep %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:usuario) %>:</strong></dt>
+  <dd><%= @information.usuario %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              informations_path, :class => 'btn btn-default'  %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              information_path(@information),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

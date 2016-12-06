@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  done_chat: 1
+  fail_chat: 1
+  message: MyString
+  pulados: 1
+
+two:
+  done_chat: 1
+  fail_chat: 1
+  message: MyString
+  pulados: 1
