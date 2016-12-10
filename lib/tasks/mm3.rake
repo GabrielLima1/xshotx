@@ -36,12 +36,7 @@ namespace :mm3 do
               robot.save
             end
             @info = Information.find(1)
-            @log = RobotLog.new
-            @log.robot_id = robot.id
-            page_verdade = robot.page_start
-            chat_feito = 0
-            chat_erros = 0
-            pulados = 0
+            @log = RobotLog.find_by_robot_id(robot.id)
             while robot.status == false
               #break
               begin
@@ -95,8 +90,7 @@ namespace :mm3 do
                           if ceps.include? cep
                             if usuarios.include? usuario
                               p "Pulando!"
-                              pulados += 1
-                              @log.pulados = pulados
+                              @log.pulados += 1
                               @log.save
                             else
                               #salve somente o usuario
@@ -104,8 +98,7 @@ namespace :mm3 do
                               sleep 1
                               if @b.p(text: "Esse usuário não pode mais receber mensagens.").present?
                                 p "Pulando!"
-                                pulados += 1
-                                @log.pulados = pulados
+                                @log.pulados += 1
                                 @log.save
                               else
                                 @info.usuario = @info.usuario+"|#{usuario}"
@@ -114,8 +107,7 @@ namespace :mm3 do
                                 @b.button(text: "Enviar").click
                                 sleep 1
                                 p "Feito"
-                                chat_feito += 1
-                                @log.done_chat = chat_feito
+                                @log.done_chat += 1
                                 @log.save
                               end
                             end
@@ -124,8 +116,7 @@ namespace :mm3 do
                             sleep 1
                             if @b.p(text: "Esse usuário não pode mais receber mensagens.").present?
                               p "Pulando!"
-                              pulados += 1
-                              @log.pulados = pulados
+                              @log.pulados += 1
                               @log.save
                             else
                               @info.cep = @info.cep+"|#{cep}"
@@ -135,16 +126,14 @@ namespace :mm3 do
                               @b.button(text: "Enviar").click
                               sleep 1
                               p "Feito"
-                              chat_feito += 1
-                              @log.done_chat = chat_feito
+                              @log.done_chat += 1
                               @log.save
                             end
                           end #end do minha conta visible
                         rescue
                           #Mechanize::ResponseCodeError
                           p "Falha ao entrar no Link do Anuncio..."
-                          chat_erros += 1
-                          @log.fail_chat = chat_erros
+                          @log.fail_chat += 1
                           @log.save
                         end#end do chat
                       end #end do each do mechanize PAGE
@@ -165,12 +154,11 @@ namespace :mm3 do
                   @b.window.maximize
                 end#end do while num_P e num_G
                 robot.status = true
-                robot.page_start = page_verdade
                 robot.page_number = 0
                 robot.save
                 hora = Time.now
                 hora -= 7200
-                @log.message = "#{robot.name} Feito da Pagina: #{robot.page_finish} até #{page_verdade}, Data: #{hora}"
+                @log.message = "#{robot.name} Feito da Pagina: #{robot.page_finish} até #{robot.page_start}, Data: #{hora}"
                 @log.save
               rescue Net::ReadTimeout
                 @b.close

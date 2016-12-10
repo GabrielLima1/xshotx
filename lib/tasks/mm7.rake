@@ -6,7 +6,7 @@ prefs = {
     }
 }
 #encoding: utf-8
-namespace :mm1 do
+namespace :mm7 do
   desc "Run Robot Send Message"
   task app: :environment do
 	@b = Watir::Browser.new :phantomjs, :prefs => prefs
@@ -17,7 +17,7 @@ namespace :mm1 do
 		p "Sem contas para fazer o Robo"
 	else
     Robot.find_each do |robot|
-      	if robot.name != "Robo MM1"
+      	if robot.name != "Robo MM7"
       		p "Robot: ##{robot.name} Não!"
         else
           if robot.automatic == true
