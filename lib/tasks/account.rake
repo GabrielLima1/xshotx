@@ -18,7 +18,7 @@ namespace :account do
         p "##{conta.id} Feito!"
       else
       	begin
-          @b = Watir::Browser.new :chrome, :prefs => prefs
+          @b = Watir::Browser.new :phantomjs, :prefs => prefs
           Watir.default_timeout = 90
           @b.window.maximize
   	    	p "Vou fazer a conta: ##{conta.id}"
@@ -68,7 +68,7 @@ namespace :account do
     							p "Tentando mais uma vez"
     							@b.close
     							sleep 1
-    							@b = Watir::Browser.new :chrome, :prefs => prefs
+    							@b = Watir::Browser.new :phantomjs, :prefs => prefs
     							Watir.default_timeout = 90
     							@b.window.maximize
     						end#end rescue
@@ -77,7 +77,7 @@ namespace :account do
     			end#end do else conta Bugada
       	rescue Net::ReadTimeout
       		p "Pulando Conta"
-      		@b = Watir::Browser.new :chrome, :prefs => prefs
+      		@b = Watir::Browser.new :phantomjs, :prefs => prefs
   			  Watir.default_timeout = 90
   			  @b.window.maximize
       	end
