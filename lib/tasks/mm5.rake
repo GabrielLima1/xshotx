@@ -100,6 +100,10 @@ namespace :mm5 do
                                 p "Pulando!"
                                 @log.pulados += 1
                                 @log.save
+                              elsif @b.li(class: "item-message ng-scope").present?
+                                p "Pulando Já Feito!"
+                                @log.pulados += 1
+                                @log.save
                               else
                                 @info.usuario = @info.usuario+"|#{usuario}"
                                 @info.save
@@ -116,6 +120,10 @@ namespace :mm5 do
                             sleep 1
                             if @b.p(text: "Esse usuário não pode mais receber mensagens.").present?
                               p "Pulando!"
+                              @log.pulados += 1
+                              @log.save
+                            elsif @b.li(class: "item-message ng-scope").present?
+                              p "Pulando Já Feito!"
                               @log.pulados += 1
                               @log.save
                             else
