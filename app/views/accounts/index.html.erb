@@ -19,7 +19,7 @@
                 :class => 'btn btn-primary' %>
     </p>
     <% @accounts.each do |account| %>
-      <tr>
+      <%if account.status_message == false%><tr class="green"><%else%><tr class="red"><%end%>
         <td><%= link_to account.id, account_path(account) %></td>
         <td><%= account.name %></td>
         <td><%= account.email %></td>
