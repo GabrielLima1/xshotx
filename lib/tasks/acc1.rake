@@ -1,5 +1,5 @@
 #encoding: utf-8
-namespace :acc do
+namespace :acc1 do
   desc "Count message of Accounts"
   task app: :environment do
 	p Account.all.length
@@ -11,6 +11,8 @@ namespace :acc do
     end
 	@b.close
 	p Account.all.length
-	p "Fim!"
+	p "Fim! Acc1"
+	p "Iniciando Acc2..."
+  Rake::Task['acc2:app'].execute
   end
 end

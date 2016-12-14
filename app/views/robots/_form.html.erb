@@ -1,10 +1,10 @@
 <%= simple_form_for @robot, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :name, :placeholder => "Nome Para Identificar seu Robo"%>
-  <%= f.input :search, :placeholder => "Palavra que o Robo de Buscar"%>
-  <%= f.input :nosearch, :placeholder => "Palavra que o Robo NÃO deve Buscar | Separar Palavras por Virgula!"%>
-  <%= f.association :type %>
-  <%= f.input :page_start %>
-  <%= f.input :page_finish %>
+  <%= f.input :name, label: "Nome Para Identificar seu Robo", placeholder: "Ex: Robo de Compro"%>
+  <%= f.input :search, label: "Palavra que o Robo deve Buscar", placeholder: "Ex: Compro"%>
+  <%= f.input :nosearch, label: "Palavra que o Robo NÃO deve Buscar | Separar Palavras por Virgula!", :placeholder => "Ex: Procuro, Queremos, Compramos"%>
+  <%= f.association :type, label: "Tipo da Mensagem"  %>
+  <%= f.input :page_finish, label: "Página Começo" %>
+  <%= f.input :page_start, label: "Página Fim" %>
   <label class="checkbox-inline">
     <%= f.input :automatic %>
   </label>

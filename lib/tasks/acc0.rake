@@ -16,6 +16,8 @@ namespace :account do
     Account.find_each do |conta|
       if conta.status == true
         p "##{conta.id} Feito!"
+      elsif conta.status_message == true
+        p "##{conta.id} Feito!"
       else
       	begin
           @b = Watir::Browser.new :phantomjs, :prefs => prefs
@@ -34,14 +36,14 @@ namespace :account do
             conta.destroy
             @b.close
     			else
-    				#pensar em como fazer o mechanize clicar no link do CHAT
     				@b.goto "https://www3.olx.com.br/account/chat/"
     				sleep 2
     				mensagens = @b.divs(class: "chat-info-box").length
     				p "#{conta.email} mandou #{mensagens} Mensagens"
     				if mensagens > 290
     					p "Ops! #{conta.name} mandou #{mensagens} Mensagens"
-    					conta.destroy
+    					conta.status_message = true
+              conta.save
               @b.close
     				else
     					p "Chat Verificado!"
@@ -86,7 +88,7 @@ namespace :account do
 	@b.close
 	p Account.all.length
 	p "Fim - Account"
-  p "...Iniciando Acc"
-  Rake::Task['acc:app'].execute
+  p "...Iniciando Acc1"
+  Rake::Task['acc1:app'].execute
   end
 end

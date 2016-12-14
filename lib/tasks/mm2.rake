@@ -43,26 +43,33 @@ namespace :mm2 do
                 num_P = robot.page_finish
                 num_P-=1
                 num_G = robot.page_number
+                id = Account.first.id
                 while num_P < num_G
                   p "Vou fazer o ##{robot.name}"
-                  #break
+                  conta = Account.find(id)
+                  while conta.status_message == true
+                    id += 1
+                    conta = Account.find(id)
+                    p "Pulando #{conta.email}"
+                  end
                   @b.goto "https://www3.olx.com.br/account/do_logout"
-                  @b.text_field(id: 'login_email').set Account.first.email #preencher
-                  @b.text_field(id: 'login_password').set Account.first.password#preencher
+                  @b.text_field(id: 'login_email').set conta.email #preencher
+                  @b.text_field(id: 'login_password').set conta.password#preencher
                   @b.button(type: 'submit').click
                   sleep 1
                   if @b.link(text: "Minha conta").present?
                     p "Bugada!"
-                    Account.first.destroy
+                    conta.destroy
                     num_G += 1
                   else
                     @b.goto "https://www3.olx.com.br/account/chat/"
                     sleep 1
                     mensagens = @b.divs(class: "chat-info-box").length
-                    p "#{Account.first.email} mandou #{mensagens} Mensagens"
-                    if mensagens > 270
-                      p "Ops! #{Account.first.email} mandou #{mensagens} Mensagens"
-                      Account.first.destroy
+                    p "#{conta.email} mandou #{mensagens} Mensagens"
+                    if mensagens > 200
+                      p "Ops! #{conta.email} mandou #{mensagens} Mensagens"
+                      conta.status_message = true
+                      conta.save
                       num_G += 1
                     else
                       p "Chat Verificado!"
@@ -80,8 +87,8 @@ namespace :mm2 do
                           if @b.link(text: "Minha conta").visible?
                             sleep 1
                             @b.goto "https://www3.olx.com.br/account/do_logout"
-                            @b.text_field(id: 'login_email').set Account.first.email #preencher
-                            @b.text_field(id: 'login_password').set Account.first.password #preencher
+                            @b.text_field(id: 'login_email').set conta.email #preencher
+                            @b.text_field(id: 'login_password').set conta.password #preencher
                             @b.button(type: 'submit').click
                             sleep 1
                             @b.goto link.href
