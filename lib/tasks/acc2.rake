@@ -36,10 +36,10 @@ namespace :acc2 do
     				sleep 2
     				mensagens = @b.divs(class: "chat-info-box").length
     				p "#{conta.email} mandou #{mensagens} Mensagens"
-            sleep 3
+            sleep 5
       			while mensagens > 0
       				if @b.div(class: "chat-options").present?
-      					@b.div(class: "chat-options").click
+      					@b.div(class: "chat-options").hover
       					@b.link(text: "Excluir").click
       					sleep 1
       					@b.button(text: "Sim").click
