@@ -12,7 +12,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <table class="table table-striped">
-  <%= will_paginate @types %>
+  <%= will_paginate @robots %>
   <thead>
     <tr>
       <th>Nome Robot</th>
@@ -50,7 +50,7 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @types %>
+<%= will_paginate @robots %><br>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_robot_path,
             :class => 'btn btn-primary' %>
