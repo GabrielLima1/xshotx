@@ -34,7 +34,8 @@ class RobotsController < ApplicationController
 	end
 
 	def index
-		@robots = Robot.all.order(:created_at)
+		@robots = Robot.paginate(:page => params[:page], :per_page => 10)
+														 .order(created_at: :asc)
 	end
 
 	def destroy

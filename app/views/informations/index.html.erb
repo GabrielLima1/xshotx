@@ -15,7 +15,7 @@
   <tbody>
     <% @informations.each do |information| %>
       <tr>
-        <td><%= link_to "Robos MM", information_path(information) %></td>
+        <td><%= link_to information.robot.name, information_path(information) %></td>
         <td colspan="3"><%= information.cep %></td>
         <td colspan="3"><%= information.usuario %></td>
         <td>
