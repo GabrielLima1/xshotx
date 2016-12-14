@@ -31,7 +31,7 @@ namespace :acc2 do
     				p "Bugada!"
             conta.destroy
             @b.close
-    			else
+    			else#else conta Bugada
     				@b.goto "https://www3.olx.com.br/account/chat/"
     				sleep 2
     				mensagens = @b.divs(class: "chat-info-box").length
@@ -52,7 +52,9 @@ namespace :acc2 do
       					@b.goto "https://www3.olx.com.br/account/chat/"
       					sleep 3
       				end
-      			end
+      			end#end do while mensagens =D
+            conta.status_message = false
+            conta.save
     			end#end do else conta Bugada
       	rescue Net::ReadTimeout
       		p "Pulando Conta"
