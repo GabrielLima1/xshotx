@@ -9,7 +9,7 @@ prefs = {
 namespace :robot do
   desc "Run Robot Send Message"
   task app: :environment do
-	@b = Watir::Browser.new :chrome, :prefs => prefs
+	@b = Watir::Browser.new :phantomjs, :prefs => prefs
 	Watir.default_timeout = 90
 	@b.window.maximize
 	@agent = Mechanize.new
@@ -185,7 +185,7 @@ namespace :robot do
                   @log.save
                   @b.close
                   sleep 2
-                  @b = Watir::Browser.new :chrome, :prefs => prefs
+                  @b = Watir::Browser.new :phantomjs, :prefs => prefs
                   Watir.default_timeout = 90
                   @b.window.maximize
                 end#end do while num_P e num_G
@@ -199,7 +199,7 @@ namespace :robot do
               rescue Net::ReadTimeout
                 @b.close
                 sleep 2
-                @b = Watir::Browser.new :chrome, :prefs => prefs
+                @b = Watir::Browser.new :phantomjs, :prefs => prefs
                 Watir.default_timeout = 90
                 @b.window.maximize
                 p "Time"
