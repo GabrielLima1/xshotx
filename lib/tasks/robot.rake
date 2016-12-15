@@ -64,7 +64,9 @@ namespace :robot do
                 num_P-=1
                 num_G = robot.page_number
                 Account.find_each do |conta|
-
+                  if conta.status_message == true
+                    p "Ops! Conta: ##{conta.email}"
+                  else
                   while num_P < num_G
                     p "Vou fazer o ##{robot.name}"
                     @b.goto "https://www3.olx.com.br/account/do_logout"

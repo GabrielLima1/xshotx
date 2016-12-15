@@ -14,9 +14,7 @@ namespace :account do
   task app: :environment do
 	p Account.all.length
     Account.find_each do |conta|
-      if conta.status == true
-        p "##{conta.id} Feito!"
-      elsif conta.status_message == true
+      if conta.status == true OR conta.status_message == true
         p "##{conta.id} Feito!"
       else
       	begin
