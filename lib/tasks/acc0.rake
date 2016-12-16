@@ -14,7 +14,7 @@ namespace :account do
   task app: :environment do
 	p Account.all.length
     Account.find_each do |conta|
-      if conta.status == true OR conta.status_message == true
+      if conta.status == true || conta.status_message == true
         p "##{conta.id} Feito!"
       else
       	begin
@@ -38,7 +38,7 @@ namespace :account do
     				sleep 2
     				mensagens = @b.divs(class: "chat-info-box").length
     				p "#{conta.email} mandou #{mensagens} Mensagens"
-    				if mensagens > 290
+    				if mensagens > 250
     					p "Ops! #{conta.name} mandou #{mensagens} Mensagens"
     					conta.status_message = true
               conta.save

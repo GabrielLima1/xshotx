@@ -8,7 +8,6 @@ prefs = {
 #encoding: utf-8
 require 'watir-webdriver'
 require 'phantomjs'
-require 'mechanize'
 namespace :acc2 do
   desc "Count message of Accounts"
   task app: :environment do
@@ -47,6 +46,7 @@ namespace :acc2 do
       					@b.link(text: "Fechar").click
       					sleep 2
       					mensagens -= 1
+                p "-1 Mensagem"
       				else
       					p "Tentando novamente!"
       					@b.goto "https://www3.olx.com.br/account/chat/"
