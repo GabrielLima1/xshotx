@@ -37,21 +37,37 @@ namespace :acc2 do
     				p "#{conta.email} mandou #{mensagens} Mensagens"
             sleep 5
       			while mensagens > 0
-      				if @b.div(class: "chat-options").present?
-      					@b.div(class: "chat-options").hover
-      					@b.link(text: "Excluir").click
-      					sleep 1
-      					@b.button(text: "Sim").click
-      					sleep 1
-      					@b.link(text: "Fechar").click
-      					sleep 2
-      					mensagens -= 1
-                p "-1 Mensagem"
-      				else
-      					p "Tentando novamente!"
-      					@b.goto "https://www3.olx.com.br/account/chat/"
-      					sleep 3
-      				end
+              begin
+        				if @b.div(class: "chat-options").present? #div present
+        					@b.div(class: "chat-options").hover
+        					@b.link(text: "Excluir").click
+        					sleep 1
+        					@b.button(text: "Sim").click
+        					sleep 1
+        					@b.link(text: "Fechar").click
+        					sleep 2
+        					mensagens -= 1
+                  p "-1 Mensagem"
+        				else #div present
+        					p "Tentando novamente!"
+        					@b.goto "https://www3.olx.com.br/account/chat/"
+        					sleep 3
+        				end #div present
+              rescue
+                @b.close
+                sleep 2
+                "Travadinha de leve"
+                @b = Watir::Browser.new :phantomjs, :prefs => prefs
+                Watir.default_timeout = 90
+                @b.window.maximize
+                sleep 2
+                @b.goto "https://www3.olx.com.br/account/do_logout"
+          			@b.text_field(id: 'login_email').set "#{conta.email}" #preencher
+          			@b.text_field(id: 'login_password').set "#{conta.password}" #preencher
+          			@b.button(type: 'submit').click
+                sleep 2
+                @b.goto "https://www3.olx.com.br/account/chat/"
+              end
       			end#end do while mensagens =D
             conta.status_message = false
             conta.save
