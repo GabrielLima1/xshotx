@@ -24,7 +24,7 @@ namespace :manda do
   end
 
   task vai_pt2: :environment do
-    robots = Robot.where(status: false)where.not(name: "Robo de Compro") || []
+    robots = Robot.where(status: false).where.not(name: "Robo de Compro") || []
     robots.each do |robot| #robot laço
       p robot.name
       if robot.page_number == 0 #else robot.page_number
