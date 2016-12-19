@@ -6,7 +6,7 @@ prefs = {
     }
 }
 #encoding: utf-8
-namespace :mm1 do
+namespace :mm5 do
   desc "Run Robot Send Message"
   task app: :environment do
 	@b = Watir::Browser.new :phantomjs, :prefs => prefs
@@ -17,7 +17,7 @@ namespace :mm1 do
 		p "Sem contas para fazer o Robo"
 	else
     Robot.find_each do |robot|
-      	if robot.name != "Robo MM1"
+      	if robot.name != "Robo MM5"
       		p "Robot: ##{robot.name} Não!"
         else
           if robot.automatic == true
@@ -43,11 +43,10 @@ namespace :mm1 do
                 num_P = robot.page_finish
                 num_P-=1
                 num_G = robot.page_number
-                id = Account.first.id
                 while num_P < num_G
                   p "Vou fazer o ##{robot.name}"
                   conta = Account.where(status_message: false).first
-                  
+
                   @b.goto "https://www3.olx.com.br/account/do_logout"
                   @b.text_field(id: 'login_email').set conta.email #preencher
                   @b.text_field(id: 'login_password').set conta.password#preencher
@@ -62,7 +61,7 @@ namespace :mm1 do
                     sleep 1
                     mensagens = @b.divs(class: "chat-info-box").length
                     p "#{conta.email} mandou #{mensagens} Mensagens"
-                    if mensagens > 200
+                    if mensagens > 243
                       p "Ops! #{conta.email} mandou #{mensagens} Mensagens"
                       conta.status_message = true
                       conta.save
