@@ -63,11 +63,17 @@ namespace :robot do
                 num_G += 1
               else
                 p "Chat Verificado!"
-                page = @agent.get("http://www.olx.com.br/brasil?o=#{num_G}&ot=1&q=#{robot.search}+#{nao}")
+                @b.goto "http://www.olx.com.br/brasil?o=#{num_G}&ot=1&q=#{robot.search}+#{nao}"
                 sleep 2
-                page.links_with(:dom_class => "OLXad-list-link").each do |link|
+                links =[]
+                @b.links(class: "OLXad-list-link").each do |link|
+                  if link.href.include? "olx.com.br"
+                    links << link.href
+                  end
+                end
+                links.each do |link|
                   begin
-                    @b.goto link.href
+                    @b.goto link
                     sleep 2
                     usuario = @b.li(class: "item owner mb10px ").text
                     divs = @b.div(class: "OLXad-location mb20px")
@@ -75,13 +81,12 @@ namespace :robot do
                     ceps = @info.cep.split("|")
                     usuarios = @info.usuario.split("|")
                     if @b.link(text: "Minha conta").visible?
-                      sleep 1
                       @b.goto "https://www3.olx.com.br/account/do_logout"
                       @b.text_field(id: 'login_email').set conta.email #preencher
                       @b.text_field(id: 'login_password').set conta.password #preencher
                       @b.button(type: 'submit').click
                       sleep 1
-                      @b.goto link.href
+                      @b.goto link
                       sleep 2
                     end
                     sleep 1
@@ -107,7 +112,6 @@ namespace :robot do
                           @info.save
                           @b.textarea(name: 'message').when_present.set robot.type.message #preencher
                           @b.button(text: "Enviar").click
-                          sleep 1
                           p "Feito"
                           @log.done_chat += 1
                           @log.save
@@ -130,7 +134,6 @@ namespace :robot do
                         @info.save
                         @b.textarea(name: 'message').when_present.set robot.type.message #preencher
                         @b.button(text: "Enviar").click
-                        sleep 1
                         p "Feito"
                         @log.done_chat += 1
                         @log.save

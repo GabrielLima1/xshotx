@@ -55,25 +55,33 @@ namespace :mm1 do
                   sleep 1
                   if @b.link(text: "Minha conta").present?
                     p "Bugada!"
-                    conta.destroy
+                    conta.status_message = true
+                    conta.save
+                    #conta.destroy
                     num_G += 1
                   else
                     @b.goto "https://www3.olx.com.br/account/chat/"
                     sleep 1
                     mensagens = @b.divs(class: "chat-info-box").length
                     p "#{conta.email} mandou #{mensagens} Mensagens"
-                    if mensagens > 200
+                    if mensagens > 243
                       p "Ops! #{conta.email} mandou #{mensagens} Mensagens"
                       conta.status_message = true
                       conta.save
                       num_G += 1
                     else
                       p "Chat Verificado!"
-                      page = @agent.get("http://www.olx.com.br/brasil?o=#{num_G}")
+                      @b.goto "http://www.olx.com.br/brasil?o=#{num_G}"
                       sleep 2
-                      page.links_with(:dom_class => "OLXad-list-link").each do |link|
+                      links =[]
+                      @b.links(class: "OLXad-list-link").each do |link|
+                        if link.href.include? "olx.com.br"
+                          links << link.href
+                        end
+                      end
+                      links.each do |link|
                         begin
-                          @b.goto link.href
+                          @b.goto link
                           sleep 2
                           usuario = @b.li(class: "item owner mb10px ").text
                           divs = @b.div(class: "OLXad-location mb20px")
@@ -81,13 +89,12 @@ namespace :mm1 do
                           ceps = @info.cep.split("|")
                           usuarios = @info.usuario.split("|")
                           if @b.link(text: "Minha conta").visible?
-                            sleep 1
                             @b.goto "https://www3.olx.com.br/account/do_logout"
                             @b.text_field(id: 'login_email').set conta.email #preencher
                             @b.text_field(id: 'login_password').set conta.password #preencher
                             @b.button(type: 'submit').click
                             sleep 1
-                            @b.goto link.href
+                            @b.goto link
                             sleep 2
                           end
                           if ceps.include? cep
@@ -112,7 +119,6 @@ namespace :mm1 do
                                 @info.save
                                 @b.textarea(name: 'message').when_present.set robot.type.message #preencher
                                 @b.button(text: "Enviar").click
-                                sleep 1
                                 p "Feito"
                                 @log.done_chat += 1
                                 @log.save
@@ -135,7 +141,6 @@ namespace :mm1 do
                               @info.save
                               @b.textarea(name: 'message').when_present.set robot.type.message #preencher
                               @b.button(text: "Enviar").click
-                              sleep 1
                               p "Feito"
                               @log.done_chat += 1
                               @log.save
