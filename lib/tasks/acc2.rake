@@ -28,7 +28,7 @@ namespace :acc2 do
     			sleep 1
     			if @b.link(text: "Minha conta").present?
     				p "Bugada!"
-            conta.destroy
+            #conta.destroy
             @b.close
     			else#else conta Bugada
     				@b.goto "https://www3.olx.com.br/account/chat/"

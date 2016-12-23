@@ -31,14 +31,14 @@ namespace :account do
     			sleep 1
     			if @b.link(text: "Minha conta").present?
     				p "Bugada!"
-            conta.destroy
+            #conta.destroy
             @b.close
     			else
     				@b.goto "https://www3.olx.com.br/account/chat/"
     				sleep 2
     				mensagens = @b.divs(class: "chat-info-box").length
     				p "#{conta.email} mandou #{mensagens} Mensagens"
-    				if mensagens > 250
+    				if mensagens > 243
     					p "Ops! #{conta.name} mandou #{mensagens} Mensagens"
     					conta.status_message = true
               conta.save

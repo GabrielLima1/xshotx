@@ -47,7 +47,9 @@ namespace :robot do
             sleep 1
             if @b.link(text: "Minha conta").present?
               p "Bugada!"
-              conta.destroy
+              #conta.destroy
+              conta.status_message = true
+              conta.save
               num_G += 1
             else
               @b.goto "https://www3.olx.com.br/account/chat/"

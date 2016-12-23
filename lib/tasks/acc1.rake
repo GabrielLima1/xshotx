@@ -4,7 +4,7 @@ namespace :acc1 do
   task app: :environment do
 	p Account.all.length
     Account.find_each do |conta|
-      if conta.status == true
+      if conta.status
         conta.status = false
         conta.save
       end

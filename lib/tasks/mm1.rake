@@ -47,7 +47,7 @@ namespace :mm1 do
                 while num_P < num_G
                   p "Vou fazer o ##{robot.name}"
                   conta = Account.where(status_message: false).first
-                  
+
                   @b.goto "https://www3.olx.com.br/account/do_logout"
                   @b.text_field(id: 'login_email').set conta.email #preencher
                   @b.text_field(id: 'login_password').set conta.password#preencher
