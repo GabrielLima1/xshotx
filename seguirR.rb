@@ -128,10 +128,12 @@ while numero < span
   end
   sleep 3
   p "Url: #{b.url}"
-  p b.link(href: "/#{hastag}/followers/").first.present?
-  p b.link(href: "/#{hastag}/followers/").first.text
+  p b.links(href: "/#{hastag}/followers/")[0].present?
+  p b.links(href: "/#{hastag}/followers/")[1].present?
+  p b.links(href: "/#{hastag}/followers/")[0].text
+  p b.links(href: "/#{hastag}/followers/")[1].text
   sleep 3
-  b.link(href: "/#{hastag}/followers/").first.click
+  b.links(href: "/#{hastag}/followers/").first.click
   sleep 3
   if b.buttons(text: "Follow")[1].present?
     b.buttons(text: "Follow")[1].click
