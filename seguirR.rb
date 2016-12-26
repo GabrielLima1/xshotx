@@ -51,6 +51,15 @@ begin
 		p "Login Feito!"
     sleep 3
     p b.url
+    insta = "n"
+    if b.url.include? "integrity/checkpoint"
+      while novo == "n"
+      	p "Eai posso sair ?"
+      	insta = gets.chomp
+      end
+    else
+      p "Foi"
+    end
 	end
 rescue
 	p erros << "Erro no Login!"
@@ -117,6 +126,7 @@ while numero < span
   rescue
   	erros << "Falha ao Abrir Link Inicial"
   end
+  sleep 3
   b.link(href: "/#{hastag}/followers/").click
   sleep 3
   if b.buttons(text: "Seguir")[1].present?
