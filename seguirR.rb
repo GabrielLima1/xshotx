@@ -32,6 +32,7 @@ require 'watir-webdriver'
 # 	p "Deseja alterar algo ? (s/n)"
 # 	novo = gets.chomp
 # end
+erros = []
 login = "capsluuk"
 senha = "analima@123"
 hastag = "olxbrasil"
