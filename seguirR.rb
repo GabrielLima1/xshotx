@@ -37,21 +37,21 @@ b = Watir::Browser.new :phantomjs
 b.goto "https://www.instagram.com/accounts/login/"
 sleep 2
 begin
-	b.text_field(placeholder: 'Nome de usuário').set "#{login}" #preencher
-	b.text_field(placeholder: 'Senha').set "#{senha}" #preencher
-	b.button(text: 'Entrar').click
+	b.text_field(placeholder: 'Username').set "#{login}" #preencher
+	b.text_field(placeholder: 'Password').set "#{senha}" #preencher
+	b.button(text: 'Log in').click
 	sleep 2
 	if b.url == "https://www.instagram.com/accounts/login/"
-		erros << "Erro no Login! Tentando efetuar Login Novamente!"
-		b.text_field(placeholder: 'Nome de usuário').set "#{login}" #preencher
-		b.text_field(placeholder: 'Senha').set "#{senha}" #preencher
-		b.button(text: 'Entrar').click
+		p erros << "Erro no Login! Tentando efetuar Login Novamente!"
+		b.text_field(placeholder: 'Username').set "#{login}" #preencher
+		b.text_field(placeholder: 'Username').set "#{senha}" #preencher
+		b.button(text: 'Log in').click
 		sleep 2
 	else
 		p "Login Feito!"
 	end
 rescue
-	erros << "Erro no Login!"
+	p erros << "Erro no Login!"
 end
 numero = 0
 controle = 0
