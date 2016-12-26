@@ -58,13 +58,11 @@ begin
 		p "Login Feito!"
     sleep 3
     p b.url
-    insta = "n"
     if b.url.include? "integrity/checkpoint"
-      while insta == "n"
-      	p "Eai posso sair ?"
-      	insta = gets.chomp
-        #b.goto "instagram.com"
-      end
+      sleep 2
+      b.buttons(type: 'submit').first.click
+      sleep 2
+      b.buttons(type: 'submit').first.click
     else
       p "Foi"
     end
