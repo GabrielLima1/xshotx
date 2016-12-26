@@ -32,7 +32,6 @@ while novo == "s"
 	p "Deseja alterar algo ? (s/n)"
 	novo = gets.chomp
 end
-arquivo = File.new("SEGUIR/Seguir_#{hastag}.txt", "w")
 puts "Aguarde..."
 b = Watir::Browser.new :phantomjs
 b.goto "https://www.instagram.com/accounts/login/"
@@ -154,22 +153,16 @@ while numero < span
 	sleep papapa
 	p "Iniciando Novamente..."
 end
-arquivo.puts "Foram Seguidas: #{numero} Pessoas. Da HASTAG: #{hastag}"
-arquivo.close
 
 arquivo1 = File.new("SEGUIR/Seguir_#{hastag}_erros.txt", "w")
 sleep 1
 if erros.length == 0
 	p "Nenhum erro!"
-	arquivo1.puts "Nenhum erro!"
 else
-	arquivo1.puts "#{erros.length} - Erro(s)"
 	p "#{erros.length} - Erro(s)"
 	erros.each do |a|
-		arquivo1.puts a
 	end
 end
-arquivo1.close
 b.close
 p "Fim - Teste!"
 #._ovg3g #imgs
