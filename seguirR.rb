@@ -144,6 +144,7 @@ while numero < span
     b.buttons(text: "Follow")[0].click
   else
     #b.buttons(text: "Following")[1].click
+		p "fail"
   end
   sleep 3
   total = b.buttons(text: "Follow").length
@@ -153,9 +154,9 @@ while numero < span
 			if b.buttons(text: "Follow")[1].present?
 				b.buttons(text: "Follow")[1].click
 				sleep 1
-				p controle += 1
+				controle += 1
 				numero += 1
-				#p controle
+				p controle
 			else
         sleep 1
 				b.send_keys :end
@@ -163,7 +164,7 @@ while numero < span
 				b.send_keys :end
 			end
 		rescue
-			#p "Voltando Daqui a Pouco!"
+			p "Voltando Daqui a Pouco!"
 		end
 	end
 	controle = 0
