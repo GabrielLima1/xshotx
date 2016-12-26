@@ -60,9 +60,9 @@ begin
     p b.url
     if b.url.include? "integrity/checkpoint"
       sleep 2
-      b.buttons(type: 'submit').first.click
+      b.button(value: 'It Was Me').click
       sleep 2
-      b.buttons(type: 'submit').first.click
+      b.button(value: 'OK').click
     else
       p "Foi"
     end
