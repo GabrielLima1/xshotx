@@ -91,7 +91,7 @@ begin
 		span = (span / 2)-100
 	elsif span.include? "mil"
 		p "mil"
-		span = span.gsub("k\nfollowers","")
+		span = span.gsub("k followers","")
 		#span = span.to_i
 		span = span.to_i * 1000
 		span = (span / 2)-100
@@ -139,7 +139,7 @@ while numero < span
   sleep 3
   b.span(text: "322k").click
   sleep 3
-  p b.button(text: "Follow")[1].present?
+  p b.button(text: "Follow").present?
   if b.buttons(text: "Follow")[1].present?
     b.buttons(text: "Follow")[1].click
   else
