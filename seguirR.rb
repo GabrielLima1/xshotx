@@ -49,6 +49,8 @@ begin
 		sleep 2
 	else
 		p "Login Feito!"
+    sleep 3
+    p b.url
 	end
 rescue
 	p erros << "Erro no Login!"
@@ -67,24 +69,24 @@ begin
 	sleep 1
 	if span.include? "milhões"
 		p "milhões"
-		span = span.gsub("milhões seguidores","")
+		span = span.gsub("m followers","")
 		#span = span.to_i
 		span = span.to_i * 1000000
 		span = (span / 2)-100
 	elsif span.include? "mil"
 		p "mil"
-		span = span.gsub("mil seguidores","")
+		span = span.gsub("k followers","")
 		#span = span.to_i
 		span = span.to_i * 1000
 		span = (span / 2)-100
   else
     span = b.link(class: "_s53mj").text
-    span = span.gsub("seguidores","").gsub(".","")
+    span = span.gsub("followers","").gsub(".","")
     span = span.to_i
 	end
 	p span
 rescue
-	erros << "Falha ao Pegar Valor de seguidores!"
+	erros << "Falha ao Pegar Valor de followers!"
 end
 b.close
 sleep 1
