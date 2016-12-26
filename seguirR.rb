@@ -139,7 +139,7 @@ while numero < span
   sleep 3
   b.span(text: "322k").click
   sleep 3
-  p b.buttons(text: "Follow")[1].present?
+  p b.button(text: "Follow")[1].present?
   if b.buttons(text: "Follow")[1].present?
     b.buttons(text: "Follow")[1].click
   else
