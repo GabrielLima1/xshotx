@@ -3,35 +3,38 @@ p "Robo Versão '2.0.2'"
 require 'rubygems'
 require 'io/console'
 require 'watir-webdriver'
-
-if STDIN.respond_to?(:noecho)
-  def get_password(prompt="Password: ")
-    print prompt
-    STDIN.noecho(&:gets).chomp
-  end
-else
-  def get_password(prompt="Password: ")
-    `read -s -p "#{prompt}" password; echo $password`.chomp
-  end
-end
-
-novo = "s"
-while novo == "s"
-	p "Passe o Login"
-	login = gets.chomp
-	senha = get_password
-	p "********"
-	p "Deseja alterar algum dado acima?(s/n)"
-	novo = gets.chomp
-end
-erros = []
-novo = "s"
-while novo == "s"
-	p "Passe o perfil que deseja SEGUIR"
-	hastag = gets.chomp
-	p "Deseja alterar algo ? (s/n)"
-	novo = gets.chomp
-end
+#
+# if STDIN.respond_to?(:noecho)
+#   def get_password(prompt="Password: ")
+#     print prompt
+#     STDIN.noecho(&:gets).chomp
+#   end
+# else
+#   def get_password(prompt="Password: ")
+#     `read -s -p "#{prompt}" password; echo $password`.chomp
+#   end
+# end
+#
+# novo = "s"
+# while novo == "s"
+# 	p "Passe o Login"
+# 	login = gets.chomp
+# 	senha = get_password
+# 	p "********"
+# 	p "Deseja alterar algum dado acima?(s/n)"
+# 	novo = gets.chomp
+# end
+# erros = []
+# novo = "s"
+# while novo == "s"
+# 	p "Passe o perfil que deseja SEGUIR"
+# 	hastag = gets.chomp
+# 	p "Deseja alterar algo ? (s/n)"
+# 	novo = gets.chomp
+# end
+login = "capsluuk"
+senha = "analima@123"
+hastag = "olxbrasil"
 puts "Aguarde..."
 b = Watir::Browser.new :phantomjs
 b.goto "https://www.instagram.com/accounts/login/"
@@ -128,12 +131,9 @@ while numero < span
   end
   sleep 3
   p "Url: #{b.url}"
-  p b.links(href: "/#{hastag}/followers/")[0].present?
-  p b.links(href: "/#{hastag}/followers/")[1].present?
-  p b.links(href: "/#{hastag}/followers/")[0].text
-  p b.links(href: "/#{hastag}/followers/")[1].text
+  p b.span(text: "322k").present?
   sleep 3
-  b.links(href: "/#{hastag}/followers/").first.click
+  b.span(text: "322k").click
   sleep 3
   if b.buttons(text: "Follow")[1].present?
     b.buttons(text: "Follow")[1].click
