@@ -139,11 +139,11 @@ while numero < span
   sleep 3
   b.span(text: "322k").click
   sleep 3
-  p b.button(text: "Follow").present?
-  if b.buttons(text: "Follow")[1].present?
-    b.buttons(text: "Follow")[1].click
+  p b.buttons(text: "Follow")[0].present?
+  if b.buttons(text: "Follow")[0].present?
+    b.buttons(text: "Follow")[0].click
   else
-    b.buttons(text: "Following")[1].click
+    #b.buttons(text: "Following")[1].click
   end
   sleep 3
   total = b.buttons(text: "Follow").length
