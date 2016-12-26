@@ -60,6 +60,7 @@ begin
       while insta == "n"
       	p "Eai posso sair ?"
       	insta = gets.chomp
+        b.goto "instagram.com"
       end
     else
       p "Foi"
@@ -67,6 +68,7 @@ begin
 	end
 rescue
 	p erros << "Erro no Login!"
+  p b.url
 end
 numero = 0
 controle = 0
