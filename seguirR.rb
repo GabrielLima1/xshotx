@@ -53,7 +53,7 @@ begin
     p b.url
     insta = "n"
     if b.url.include? "integrity/checkpoint"
-      while novo == "n"
+      while insta == "n"
       	p "Eai posso sair ?"
       	insta = gets.chomp
       end
