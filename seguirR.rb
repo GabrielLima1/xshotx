@@ -124,10 +124,14 @@ while numero < span
   	b.goto "https://www.instagram.com/#{hastag}/"
     sleep 2
   rescue
-  	erros << "Falha ao Abrir Link Inicial"
+  	p erros << "Falha ao Abrir Link Inicial"
   end
   sleep 3
-  b.links(class: "_s53mj").first.click
+  p "Url: #{b.url}"
+  p b.links(href: "/#{hastag}/followers/").first.present?
+  p b.links(href: "/#{hastag}/followers/").first.text
+  sleep 3
+  b.links(href: "/#{hastag}/followers/").first.click
   sleep 3
   if b.buttons(text: "Follow")[1].present?
     b.buttons(text: "Follow")[1].click
