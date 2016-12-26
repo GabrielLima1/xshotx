@@ -141,18 +141,18 @@ while numero < span
   sleep 3
   b.span(text: "322k").click
   sleep 3
-  if b.buttons(text: "Follow")[2].present?
-    b.buttons(text: "Follow")[2].click
+  if b.buttons(text: "Follow")[1].present?
+    b.buttons(text: "Follow")[1].click
   else
-    b.buttons(text: "Following")[2].click
+    b.buttons(text: "Following")[0].click
   end
   sleep 3
   total = b.buttons(text: "Follow").length
-	ale = Random.rand(22...30)
+	ale = Random.rand(22...31)
 	while controle <  ale
 		begin
-			if b.buttons(text: "Follow")[2].present?
-				b.buttons(text: "Follow")[2].click
+			if b.buttons(text: "Follow")[1].present?
+				b.buttons(text: "Follow")[1].click
 				sleep 1
 				p controle += 1
 				numero += 1
