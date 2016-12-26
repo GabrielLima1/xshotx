@@ -84,7 +84,7 @@ begin
 		span = (span / 2)-100
 	elsif span.include? "mil"
 		p "mil"
-		span = span.gsub("k followers","")
+		span = span.gsub("k\nfollowers","")
 		#span = span.to_i
 		span = span.to_i * 1000
 		span = (span / 2)-100
