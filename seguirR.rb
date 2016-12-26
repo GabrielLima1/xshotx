@@ -127,20 +127,20 @@ while numero < span
   	erros << "Falha ao Abrir Link Inicial"
   end
   sleep 3
-  b.link(href: "/#{hastag}/followers/").click
+  b.links(class: "_s53mj").first.click
   sleep 3
-  if b.buttons(text: "Seguir")[1].present?
-    b.buttons(text: "Seguir")[1].click
+  if b.buttons(text: "Follow")[1].present?
+    b.buttons(text: "Follow")[1].click
   else
-    b.buttons(text: "Seguindo")[1].click
+    b.buttons(text: "Following")[1].click
   end
   sleep 3
-  total = b.buttons(text: "Seguir").length
+  total = b.buttons(text: "Follow").length
 	ale = Random.rand(22...30)
 	while controle <  ale
 		begin
-			if b.buttons(text: "Seguir")[1].present?
-				b.buttons(text: "Seguir")[1].click
+			if b.buttons(text: "Follow")[1].present?
+				b.buttons(text: "Follow")[1].click
 				sleep 1
 				p controle += 1
 				numero += 1
@@ -166,7 +166,6 @@ while numero < span
 	p "Iniciando Novamente..."
 end
 
-arquivo1 = File.new("SEGUIR/Seguir_#{hastag}_erros.txt", "w")
 sleep 1
 if erros.length == 0
 	p "Nenhum erro!"
