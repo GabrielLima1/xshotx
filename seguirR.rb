@@ -3,6 +3,7 @@ p "Robo Versão '2.0.2'"
 require 'rubygems'
 require 'io/console'
 require 'watir-webdriver'
+require 'phantomjs'
 #
 # if STDIN.respond_to?(:noecho)
 #   def get_password(prompt="Password: ")
@@ -36,8 +37,10 @@ erros = []
 login = "capsluuk"
 senha = "analima@123"
 hastag = "olxbrasil"
+
 puts "Aguarde..."
 b = Watir::Browser.new :phantomjs
+
 b.goto "https://www.instagram.com/accounts/login/"
 sleep 2
 begin
@@ -60,7 +63,7 @@ begin
       while insta == "n"
       	p "Eai posso sair ?"
       	insta = gets.chomp
-        b.goto "instagram.com"
+        #b.goto "instagram.com"
       end
     else
       p "Foi"
@@ -138,18 +141,18 @@ while numero < span
   sleep 3
   b.span(text: "322k").click
   sleep 3
-  if b.buttons(text: "Follow")[1].present?
-    b.buttons(text: "Follow")[1].click
+  if b.buttons(text: "Follow")[2].present?
+    b.buttons(text: "Follow")[2].click
   else
-    b.buttons(text: "Following")[1].click
+    b.buttons(text: "Following")[2].click
   end
   sleep 3
   total = b.buttons(text: "Follow").length
 	ale = Random.rand(22...30)
 	while controle <  ale
 		begin
-			if b.buttons(text: "Follow")[1].present?
-				b.buttons(text: "Follow")[1].click
+			if b.buttons(text: "Follow")[2].present?
+				b.buttons(text: "Follow")[2].click
 				sleep 1
 				p controle += 1
 				numero += 1
