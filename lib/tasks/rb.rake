@@ -10,7 +10,7 @@ namespace :manda do
   desc "Fazendo os robo e tal"
   task :vai_robot => [:vai_pt2] do
     robots = Robot.where(status: false).where.not(name: ["Robo de Compro","Robo de Procuro","Robo de Compramos","Robo de Compramos"]) || []
-    robots.each do |robot| # robot laço
+    robots.find_each do |robot| # robot laço
       if robot.page_number == 0 # if robot.page_number
         robot.page_number = robot.page_start
         robot.save

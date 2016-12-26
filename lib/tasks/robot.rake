@@ -17,7 +17,7 @@ namespace :robot do
 		p "Sem contas para fazer o Robo"
 	else
     robots = Robot.where(status: false).where.not(name: ["Robo de Teste","Robo MM1","Robo MM2","Robo MM3","Robo MM4","Robo MM5","Robo MM6","Robo MM7","Robo MM8","Robo MM9","Robo MM10"]) || []
-    robots.each do |robot| # robot laço
+    robots.find_each do |robot| # robot laço
       if robot.page_number == 0
         robot.page_number = robot.page_start
         robot.save
