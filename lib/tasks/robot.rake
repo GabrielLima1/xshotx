@@ -56,7 +56,8 @@ namespace :robot do
               sleep 1
               mensagens = @b.divs(class: "chat-info-box").length
               p "#{conta.email} mandou #{mensagens} Mensagens"
-              if mensagens > 243
+              mensagens += 50
+              if mensagens > 251
                 p "Ops! #{conta.email} mandou #{mensagens} Mensagens"
                 conta.status_message = true
                 conta.save

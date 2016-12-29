@@ -9,7 +9,7 @@ prefs = {
 namespace :manda do
   desc "Fazendo os robo e tal"
   task :vai_robot => [:vai_pt2] do
-    robots = Robot.where(status: false).where.not(name: ["Robo de Compro","Robo de Procuro","Robo de Compramos","Robo de Compramos"]) || []
+    robots = Robot.where(status: false).where.not(name: ["Robo de Teste","Robo MM1","Robo MM2","Robo MM3","Robo MM4","Robo MM5","Robo MM6","Robo MM7","Robo MM8","Robo MM9","Robo MM10"]) || []
     robots.find_each do |robot| # robot laço
       if robot.page_number == 0 # if robot.page_number
         robot.page_number = robot.page_start
@@ -18,6 +18,7 @@ namespace :manda do
       num_G = robot.page_number
       num_P = robot.page_finish
       num_P-=1
+      numero = 0
       while num_P < num_G # while num_P | num_G
         Rake::Task['manda:vai_pt2'].execute
         p "----------------------------------------"
@@ -26,10 +27,13 @@ namespace :manda do
         robot.save
       end # end num_P | num_G
       sleep 2
-      p "Saii"
-      robot.page_number = 0
-      robot.status = true
-      robot.save
+      p "Sai do While"
+      p "page_number = #{robot.page_number}"
+      if robot.page_number == 0
+        robot.page_number = 0
+        robot.status = true
+        robot.save
+      end
     end # end robot laço
   end
 
