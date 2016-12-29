@@ -34,7 +34,8 @@ namespace :teste_robot do
       robot.status = true
       robot.save
     end
-    sleep 540
+    p "Sleeppp"
+    sleep 580
   end
 
   # task vai_pt2: :environment do # taks parte 2
