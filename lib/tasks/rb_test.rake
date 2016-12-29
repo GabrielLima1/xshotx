@@ -33,6 +33,10 @@ namespace :teste_robot do
       robot.page_number = 0
       robot.status = true
       robot.save
+      hora = Time.now
+      hora -= 7200
+      @log.message = "#{robot.name} Feito da Pagina: #{robot.page_finish} até #{robot.page_start}, Data: #{hora}"
+      @log.save
     end
     p "Sleeppp"
     sleep 580
