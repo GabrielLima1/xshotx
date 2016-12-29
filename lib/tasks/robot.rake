@@ -1,15 +1,9 @@
 #encoding: utf-8
-prefs = {
-  :profile => {
-    :managed_default_content_settings => {
-      :images => 2
-    }
-  }
-}
+
 namespace :robot do
   desc "Run Robot Send Message"
   task send: :environment do
-	@b = Watir::Browser.new :phantomjs, :prefs => prefs
+	@b = Watir::Browser.new :phantomjs
 	Watir.default_timeout = 90
 	@b.window.maximize
 	@agent = Mechanize.new
@@ -158,7 +152,7 @@ namespace :robot do
             @log.save
             @b.close
             sleep 2
-            @b = Watir::Browser.new :phantomjs, :prefs => prefs
+            @b = Watir::Browser.new :phantomjs
             Watir.default_timeout = 90
             @b.window.maximize
           end #end do else status_message
@@ -173,7 +167,7 @@ namespace :robot do
         rescue Net::ReadTimeout
           @b.close
           sleep 2
-          @b = Watir::Browser.new :phantomjs, :prefs => prefs
+          @b = Watir::Browser.new :phantomjs
           Watir.default_timeout = 90
           @b.window.maximize
           p "Time"
