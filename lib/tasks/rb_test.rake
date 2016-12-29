@@ -1,6 +1,6 @@
-namespace :teste_robot do
+namespace :testerobot do
   desc "Fazendo os robo e tal"
-  task vai_robot: :environment do
+  task vairobot: :environment do
     robots = Robot.where(status: false).where.not(name: ["Robo de Teste","Robo MM1","Robo MM2","Robo MM3","Robo MM4","Robo MM5","Robo MM6","Robo MM7","Robo MM8","Robo MM9","Robo MM10"]) || []
     robot = robots.first # robot laço
     if robot.page_number == 0 # if robot.page_number
