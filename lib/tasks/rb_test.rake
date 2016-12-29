@@ -12,7 +12,7 @@ namespace :teste_robot do
     num_P-=1
     numero = 0
     while num_P < num_G # while num_P | num_G
-      if numero < 3
+      if numero < 2
         p "Executei o Job"
         SendRobotJob.perform_later robot
         p "----------------------------------------"

@@ -136,6 +136,7 @@ class SendRobotJob < ApplicationJob # CLASS
          rescue # BEGIN | RESCUE
            #Mechanize::ResponseCodeError
            p "Falha ao entrar no Link do Anuncio... #{pagina}, #{robot.name}"
+           p @b.url
            @log.fail_chat += 1
            @log.save
          end# end BEGIN | RESCUE
