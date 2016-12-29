@@ -13,15 +13,27 @@ namespace :teste_robot do
     numero = 0
     while num_P < num_G # while num_P | num_G
       if numero < 2
-        p "Executei o Job"
-        SendRobotJob.perform_later robot
-        p "----------------------------------------"
-        sleep 20
-        num_G -= 1
-        numero += 1
-        robot.page_number = num_G
-        robot.save
-        p "oi"
+        if robot.page_number == num_P
+          robot.page_number = 0
+          robot.status = true
+          robot.save
+          hora = Time.now
+          hora -= 7200
+          @log = RobotLog.find_by_robot_id(robot.id)
+          @log.message = "#{robot.name} Feito da Pagina: #{robot.page_finish} até #{robot.page_start}, Data: #{hora}"
+          @log.save
+          break
+        else
+          p "Executei o Job"
+          SendRobotJob.perform_later robot
+          p "----------------------------------------"
+          sleep 20
+          num_G -= 1
+          numero += 1
+          robot.page_number = num_G
+          robot.save
+          p "oi"
+        end
       else
         break
       end
@@ -29,15 +41,6 @@ namespace :teste_robot do
     sleep 2
     p "Sai do While"
     p "page_number = #{robot.page_number}"
-    if robot.page_number == 0
-      robot.page_number = 0
-      robot.status = true
-      robot.save
-      hora = Time.now
-      hora -= 7200
-      @log.message = "#{robot.name} Feito da Pagina: #{robot.page_finish} até #{robot.page_start}, Data: #{hora}"
-      @log.save
-    end
     p "Sleeppp"
     sleep 580
   end

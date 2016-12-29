@@ -141,8 +141,9 @@ class SendRobotJob < ApplicationJob # CLASS
            @log.save
          end# end BEGIN | RESCUE
        end # end do each do mechanize PAGE
+       @log.message = "Fiz a Pagina #{robot.page_number} da Palavra: #{robot.search} - Data: #{hora}"
+       @log.save
+       @b.close
      end # end if | esle  mensagens
-     @log.message = "Fiz a Pagina #{robot.page_number} da Palavra: #{robot.search} - Data: #{hora}"
-     @b.close
   end # END DEF PERFORM
 end # END CLASS

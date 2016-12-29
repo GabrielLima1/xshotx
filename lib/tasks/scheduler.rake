@@ -4,6 +4,7 @@ task :scheduler => :environment do
   Robot.find_each do |robot|
     if robot.automatic && robot.status
       robot.status = false
+      robot.page_number = 0
       robot.save
     end
   end
