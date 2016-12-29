@@ -1,11 +1,11 @@
-prefs = {
-    :profile => {
-        :managed_default_content_settings => {
-          :images => 2
-        }
-    }
-}
 #encoding: utf-8
+prefs = {
+  :profile => {
+    :managed_default_content_settings => {
+      :images => 2
+    }
+  }
+}
 namespace :robot do
   desc "Run Robot Send Message"
   task send: :environment do
