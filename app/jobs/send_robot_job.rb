@@ -3,21 +3,14 @@ class SendRobotJob < ApplicationJob # CLASS
 
   def perform(robot) # DEF PERFORM
     pagina = robot.page_number
-    #!/usr/bin/ruby
     #encoding: utf-8
-    prefs = {
-      :profile => {
-        :managed_default_content_settings => {
-          :images => 2
-        }
-      }
-    }
+
     require 'watir-webdriver'
     require 'phantomjs'
     require 'mechanize'
 
     @conta = Account.where(status_message: false).first
-    @b = Watir::Browser.new :phantomjs, :prefs => prefs
+    @b = Watir::Browser.new :phantomjs
     Watir.default_timeout = 90
     @b.window.maximize
     @agent = Mechanize.new
