@@ -11,7 +11,7 @@ class SendRobotJob < ApplicationJob # CLASS
     require 'mechanize'
 
     @conta = Account.where(status_message: false).first
-    
+
     @b = Watir::Browser.new :phantomjs
     Watir.default_timeout = 90
     @b.window.maximize
@@ -45,8 +45,8 @@ class SendRobotJob < ApplicationJob # CLASS
          nao = @robot.nosearch.gsub(",","+NÃO").gsub(" ","+").gsub("  ","+").insert(0, 'NÃO+')
        end
 
-       @info = Information.find_by_@robot_id(@robot.id)
-       @log = RobotLog.find_by_@robot_id(@robot.id)
+       @info = Information.find_by_robot_id(@robot.id)
+       @log = RobotLog.find_by_robot_id(@robot.id)
        p "Chat Verificado!"
        p "Vou fazer a Página: #{pagina} do #{@robot.name}"
       #  begin # BEGIN TIMEOUT
