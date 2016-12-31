@@ -1,10 +1,3 @@
-prefs = {
-    :profile => {
-        :managed_default_content_settings => {
-          :images => 2
-        }
-    }
-}
 #encoding: utf-8
 namespace :manda do
   desc "Fazendo os robo e tal"

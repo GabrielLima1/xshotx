@@ -2,7 +2,8 @@ class SendRobotJob < ApplicationJob # CLASS
   queue_as :default
 
   def perform(robot) # DEF PERFORM
-    pagina = robot.page_number
+    @robot = robot
+    pagina = @robot.page_number
     #encoding: utf-8
 
     require 'watir-webdriver'
@@ -10,6 +11,7 @@ class SendRobotJob < ApplicationJob # CLASS
     require 'mechanize'
 
     @conta = Account.where(status_message: false).first
+    
     @b = Watir::Browser.new :phantomjs
     Watir.default_timeout = 90
     @b.window.maximize
@@ -36,20 +38,20 @@ class SendRobotJob < ApplicationJob # CLASS
        @conta.save
        # MANDAR RODAR UM JOB PARA APAGAR AS MENSAGENS DA CONTA
      else # else mensagens
-       robot.search.rstrip!
-       if robot.nosearch == ""
+       @robot.search.rstrip!
+       if @robot.nosearch == ""
          nao = ""
        else
-         nao = robot.nosearch.gsub(",","+NÃO").gsub(" ","+").gsub("  ","+").insert(0, 'NÃO+')
+         nao = @robot.nosearch.gsub(",","+NÃO").gsub(" ","+").gsub("  ","+").insert(0, 'NÃO+')
        end
 
-       @info = Information.find_by_robot_id(robot.id)
-       @log = RobotLog.find_by_robot_id(robot.id)
+       @info = Information.find_by_@robot_id(@robot.id)
+       @log = RobotLog.find_by_@robot_id(@robot.id)
        p "Chat Verificado!"
-       p "Vou fazer a Página: #{pagina} do #{robot.name}"
+       p "Vou fazer a Página: #{pagina} do #{@robot.name}"
       #  begin # BEGIN TIMEOUT
        # inicio DO Mechanize
-       page = @agent.get("http://www.olx.com.br/brasil?o=#{pagina}&ot=1&q=#{robot.search}+#{nao}")
+       page = @agent.get("http://www.olx.com.br/brasil?o=#{pagina}&ot=1&q=#{@robot.search}+#{nao}")
        sleep 2
        page.links_with(:dom_class => "OLXad-list-link").each do |link|
          begin # BEGIN | RESCUE
@@ -77,7 +79,7 @@ class SendRobotJob < ApplicationJob # CLASS
 
            if ceps.include? cep # if cep | usuario
              if usuarios.include? usuario # if | usuario |
-               p "Pulando#{pagina}!, #{robot.name}!"
+               p "Pulando#{pagina}!, #{@robot.name}!"
                @log.pulados += 1
                @log.save
              else # else | usuario |
@@ -85,20 +87,20 @@ class SendRobotJob < ApplicationJob # CLASS
                @b.button(text: "Iniciar chat").click
                sleep 1
                if @b.p(text: "Esse usuário não pode mais receber mensagens.").present? # if bang chat pt1
-                 p "Pulando#{pagina}, #{robot.name}!"
+                 p "Pulando#{pagina}, #{@robot.name}!"
                  @log.pulados += 1
                  @log.save
                elsif @b.li(class: "item-message ng-scope").present? # elsif bang chat pt1
-                 p "Pulando Já Feito#{pagina}, #{robot.name}!"
+                 p "Pulando Já Feito#{pagina}, #{@robot.name}!"
                  @log.pulados += 1
                  @log.save
                else #else bang chat pt1
                  @info.usuario = @info.usuario+"|#{usuario}"
                  @info.save
-                 @b.textarea(name: 'message').when_present.set robot.type.message # preencher
+                 @b.textarea(name: 'message').when_present.set @robot.type.message # preencher
                  @b.button(text: "Enviar").click
                  sleep 1
-                 p "Feito#{pagina}, #{robot.name}"
+                 p "Feito#{pagina}, #{@robot.name}"
                  @log.done_chat += 1
                  @log.save
                end # end bang chat pt1
@@ -107,34 +109,34 @@ class SendRobotJob < ApplicationJob # CLASS
              @b.button(text: "Iniciar chat").click
              sleep 1
              if @b.p(text: "Esse usuário não pode mais receber mensagens.").present? # if bang chat pt2
-               p "Pulando#{pagina}, #{robot.name}!"
+               p "Pulando#{pagina}, #{@robot.name}!"
                @log.pulados += 1
                @log.save
              elsif @b.li(class: "item-message ng-scope").present? # elsif bang chat pt2
-               p "Pulando Já Feito#{pagina}, #{robot.name}!"
+               p "Pulando Já Feito#{pagina}, #{@robot.name}!"
                @log.pulados += 1
                @log.save
              else # else bang chat pt2
                @info.cep = @info.cep+"|#{cep}"
                @info.usuario = @info.usuario+"|#{usuario}"
                @info.save
-               @b.textarea(name: 'message').when_present.set robot.type.message #preencher
+               @b.textarea(name: 'message').when_present.set @robot.type.message #preencher
                @b.button(text: "Enviar").click
                sleep 1
-               p "Feito#{pagina}, #{robot.name}"
+               p "Feito#{pagina}, #{@robot.name}"
                @log.done_chat += 1
                @log.save
              end # end bang chat pt2
            end # end cep | usuario
          rescue # BEGIN | RESCUE
            #Mechanize::ResponseCodeError
-           p "Falha ao entrar no Link do Anuncio... #{pagina}, #{robot.name}"
+           p "Falha ao entrar no Link do Anuncio... #{pagina}, #{@robot.name}"
            p @b.url
            @log.fail_chat += 1
            @log.save
          end# end BEGIN | RESCUE
        end # end do each do mechanize PAGE
-       @log.message = "Fiz a Pagina #{robot.page_number} da Palavra: #{robot.search} - Data: #{hora}"
+       @log.message = "Fiz a Pagina #{@robot.page_number} da Palavra: #{@robot.search} - Data: #{hora}"
        @log.save
        @b.close
      end # end if | esle  mensagens

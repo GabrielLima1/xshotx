@@ -1,15 +1,8 @@
-prefs = {
-    :profile => {
-        :managed_default_content_settings => {
-          :images => 2
-        }
-    }
-}
 #encoding: utf-8
 namespace :mm4 do
   desc "Run Robot Send Message"
   task app: :environment do
-	@b = Watir::Browser.new :phantomjs, :prefs => prefs
+	@b = Watir::Browser.new :phantomjs
 	Watir.default_timeout = 90
 	@b.window.maximize
 	@agent = Mechanize.new
@@ -165,7 +158,7 @@ namespace :mm4 do
                   @log.save
                   @b.close
                   sleep 2
-                  @b = Watir::Browser.new :phantomjs, :prefs => prefs
+                  @b = Watir::Browser.new :phantomjs
                   Watir.default_timeout = 90
                   @b.window.maximize
                 end#end do while num_P e num_G
@@ -179,7 +172,7 @@ namespace :mm4 do
               rescue Net::ReadTimeout
                 @b.close
                 sleep 2
-                @b = Watir::Browser.new :phantomjs, :prefs => prefs
+                @b = Watir::Browser.new :phantomjs
                 Watir.default_timeout = 90
                 @b.window.maximize
                 p "Time"

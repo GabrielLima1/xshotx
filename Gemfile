@@ -14,10 +14,12 @@ gem 'twitter-bootstrap-rails'
 gem 'pry'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.1.0'
-
 gem 'devise'
+
+gem 'webdriver-user-agent'
 gem 'watir-webdriver'
 gem 'mechanize'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end

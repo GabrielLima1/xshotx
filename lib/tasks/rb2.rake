@@ -1,11 +1,4 @@
 #encoding: utf-8
-prefs = {
-  :profile => {
-    :managed_default_content_settings => {
-      :images => 2
-    }
-  }
-}
 require 'watir-webdriver'
 require 'phantomjs'
 require 'mechanize'
@@ -19,7 +12,7 @@ namespace :manda1 do
     pagina = robot.page_number
 
     @conta = Account.where(status_message: false).first
-    @b = Watir::Browser.new :chrome, :prefs => prefs
+    @b = Watir::Browser.new :chrome
     Watir.default_timeout = 90
     @b.window.maximize
     @agent = Mechanize.new

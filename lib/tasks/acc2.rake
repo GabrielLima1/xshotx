@@ -1,10 +1,4 @@
-prefs = {
-    :profile => {
-        :managed_default_content_settings => {
-          :images => 2
-        }
-    }
-}
+
 #encoding: utf-8
 require 'watir-webdriver'
 require 'phantomjs'
@@ -15,7 +9,7 @@ namespace :acc2 do
     Account.find_each do |conta|
       if conta.status_message == true
       	begin
-          @b = Watir::Browser.new :phantomjs, :prefs => prefs
+          @b = Watir::Browser.new :phantomjs
           Watir.default_timeout = 90
           @b.window.maximize
   	    	p "Vou fazer a conta: ##{conta.id}"
@@ -57,7 +51,7 @@ namespace :acc2 do
                 @b.close
                 sleep 2
                 "Travadinha de leve"
-                @b = Watir::Browser.new :phantomjs, :prefs => prefs
+                @b = Watir::Browser.new :phantomjs
                 Watir.default_timeout = 90
                 @b.window.maximize
                 sleep 2
@@ -74,7 +68,7 @@ namespace :acc2 do
     			end#end do else conta Bugada
       	rescue Net::ReadTimeout
       		p "Pulando Conta"
-      		@b = Watir::Browser.new :phantomjs, :prefs => prefs
+      		@b = Watir::Browser.new :phantomjs
   			  Watir.default_timeout = 90
   			  @b.window.maximize
       	end
