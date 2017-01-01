@@ -9,6 +9,8 @@ Watir.default_timeout = 90
 
 #b = Watir::Browser.new driver
 @b.goto 'instagram.com/accounts/login/'
+sleep 3
+p @b.url
 if @b.url.include? "/accounts/login/"
 	sleep 2
 	login = "pagoate"
