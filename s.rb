@@ -14,17 +14,32 @@ sleep 5
 sleep 2
 p @b.url
 if @b.url.include? "/accounts/login/"
-	p "Entrie no If"
-	sleep 2
+	p "Entrei no If"
+	sleep 4
 	login = "pagoate"
 	senha = "123mudar@@"
 	hashtag = "skina"
-	@b.span(text: "Log in as #{login}").present?
-	@b.button(text: "Log in as #{login}").present?
-	p "-------------"
+	p @b.span(text: "Log in as #{login}").present?
+	p @b.button(text: "Log in as #{login}").present?
+	sleep 5
+	p "-----INGLES--------"
+	p @b.text_field(placeholder: "Username").present?
+	p @b.text_field(placeholder: "Password").present?
+	p @b.button(placeholder: "Log in").present?
+	sleep 3
+	p "-----PORTUGUÊS--------"
+	p @b.text_field(placeholder: 'Nome de usuário')present?
+	p @b.text_field(placeholder: 'Senha')present?
+	p @b.button(text: 'Entrar')present?
+	p "-----------------"
+
 end
 p @b.url
 p @b.link(text: "Profile").present?
+body = @b.body
+body.inputs.each do |input|
+  p input.name
+end
 #
 # # controle = 0
 # # numero = 1
