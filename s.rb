@@ -17,8 +17,10 @@ p @b.url
 #p @b.link(href: "/accounts/login/").present?
 sleep 5
 p @b.url
-p @b.html
-
+html = @b.html
+html.links.each do |links|
+  p links.text
+end
 
 
 
