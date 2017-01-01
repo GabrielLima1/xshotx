@@ -1,5 +1,5 @@
 require 'watir-webdriver'
-#require 'phantomjs'
+require 'phantomjs'
 # spans[7] = SEGUIDORES | # spans[8] = SEGUINDO
 
 @b = Watir::Browser.new :phantomjs
@@ -9,7 +9,7 @@ Watir.default_timeout = 90
 # Quick test to make sure it's set
 
 #b = Watir::Browser.new driver
-@b.goto 'www.instagram.com/accounts/login/'
+@b.goto 'instagram.com/accounts/login/'
 sleep 5
 sleep 2
 p @b.url
@@ -19,8 +19,10 @@ if @b.url.include? "/accounts/login/"
 	login = "pagoate"
 	senha = "123mudar@@"
 	hashtag = "skina"
-	p @b.span(text: "Log in as #{login}").present?
-	p @b.button(text: "Log in as #{login}").present?
+	p @b.span(text: "Log in as capsluuk").present?
+	p @b.button(text: "Log in as capsluuk").present?
+	p @b.span(text: "Log in as pagoate").present?
+	p @b.button(text: "Log in as pagoate").present?
 	sleep 5
 	p "-----INGLES--------"
 	p @b.text_field(placeholder: "Username").present?
