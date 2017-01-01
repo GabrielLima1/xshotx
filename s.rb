@@ -1,7 +1,8 @@
 require 'watir-webdriver'
 require 'webdriver-user-agent'
+require 'phantomjs'
 #driver = Webdriver::UserAgent.driver(:browser => :chrome, :agent => :iphone, :orientation => :landscape)
-driver = Webdriver::UserAgent.driver(:browser => :chrome, :agent => :iphone)
+driver = Webdriver::UserAgent.driver(:browser => :phantomjs, :agent => :iphone)
 b = Watir::Browser.new driver
 b.goto 'instagram.com/accounts/login/'
 sleep 2
