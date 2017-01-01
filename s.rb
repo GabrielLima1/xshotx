@@ -17,6 +17,7 @@ hashtag = "skina"
 #@b.url == 'http://m.tiffany.com/Mobile/Default.aspx'
 p @b.text_field(name: "username").present?
 p @b.text_field(name: "password").present?
+p @b.button(text: 'Log in').present?
 
 @b.text_field(name: "username").set login
 @b.text_field(name: "password").set senha
@@ -33,8 +34,10 @@ rescue
 end
 sleep 2
 #sleep 600
+p @b.spans[6].text
 p @b.spans[7].text
 p @b.spans[8].text
+p @b.spans[9].text
 sleep 2
 @b.spans[7].click
 sleep 3
