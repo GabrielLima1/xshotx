@@ -18,8 +18,8 @@ p @b.url
 sleep 5
 p @b.url
 html = @b.html
-html.links.each do |links|
-  p links.text
+html.links.each do |link|
+  p link.text
 end
 
 
