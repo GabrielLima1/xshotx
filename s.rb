@@ -9,20 +9,22 @@ Watir.default_timeout = 90
 
 #b = Watir::Browser.new driver
 @b.goto 'instagram.com/accounts/login/'
-sleep 2
-login = "pagoate"
-senha = "123mudar@@"
-hashtag = "skina"
-# spans[7] = SEGUIDORES | # spans[8] = SEGUINDO
-#@b.url == 'http://m.tiffany.com/Mobile/Default.aspx'
-p @b.text_field(name: "username").present?
-p @b.text_field(name: "password").present?
-p @b.button(text: 'Log in').present?
+if @b.url.include? "/accounts/login/"
+	sleep 2
+	login = "pagoate"
+	senha = "123mudar@@"
+	hashtag = "skina"
+	# spans[7] = SEGUIDORES | # spans[8] = SEGUINDO
+	#@b.url == 'http://m.tiffany.com/Mobile/Default.aspx'
+	p @b.text_field(name: "username").present?
+	p @b.text_field(name: "password").present?
+	p @b.button(text: 'Log in').present?
 
-@b.text_field(name: "username").set login
-@b.text_field(name: "password").set senha
-sleep 2
-@b.button(text: 'Log in').click
+	@b.text_field(name: "username").set login
+	@b.text_field(name: "password").set senha
+	sleep 2
+	@b.button(text: 'Log in').click
+end
 controle = 0
 numero = 1
 sleep 2
