@@ -18,8 +18,8 @@ p @b.url
 sleep 5
 p @b.url
 body = @b.body
-body.text_fields.each do |text_field|
-  p text_field.name
+body.links.each do |links|
+  p links.name
 end
 
 
