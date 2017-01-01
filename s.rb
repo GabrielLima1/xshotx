@@ -34,13 +34,17 @@ if @b.url.include? "/accounts/login/"
 	p @b.text_field(placeholder: 'Senha').present?
 	p @b.button(text: 'Entrar').present?
 	p "-----------------"
+	p @b.text_field(name: 'username').present?
+	p @b.text_field(name: 'password').present?
+	p @b.button(text: 'Entrar').present?
+	p "-----------------"
 
 end
 p @b.url
 p @b.link(text: "Profile").present?
 body = @b.body
-body.inputs.each do |input|
-  p input.name
+body.text_fields.each do |text_field|
+  p text_field.name
 end
 #
 # # controle = 0
