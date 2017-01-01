@@ -2,7 +2,7 @@ require 'watir-webdriver'
 #require 'phantomjs'
 # spans[7] = SEGUIDORES | # spans[8] = SEGUINDO
 
-@b = Watir::Browser.new
+@b = Watir::Browser.new :phantomjs
 Watir.default_timeout = 90
 #@b.window.maximize
 
