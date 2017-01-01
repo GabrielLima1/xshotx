@@ -28,9 +28,9 @@ if @b.url.include? "/accounts/login/"
 	p @b.button(placeholder: "Log in").present?
 	sleep 3
 	p "-----PORTUGUÊS--------"
-	p @b.text_field(placeholder: 'Nome de usuário')present?
-	p @b.text_field(placeholder: 'Senha')present?
-	p @b.button(text: 'Entrar')present?
+	p @b.text_field(placeholder: 'Nome de usuário').present?
+	p @b.text_field(placeholder: 'Senha').present?
+	p @b.button(text: 'Entrar').present?
 	p "-----------------"
 
 end
