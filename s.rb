@@ -1,15 +1,17 @@
 require 'watir-webdriver'
 #require 'phantomjs'
+# spans[7] = SEGUIDORES | # spans[8] = SEGUINDO
 
 @b = Watir::Browser.new :phantomjs
 Watir.default_timeout = 90
-@b.window.maximize
+#@b.window.maximize
 
 # Quick test to make sure it's set
 
 #b = Watir::Browser.new driver
-@b.goto 'instagram.com/accounts/login/'
+@b.goto 'www.instagram.com/accounts/login/'
 sleep 5
+sleep 2
 p @b.url
 if @b.url.include? "/accounts/login/"
 	p "Entrie no If"
@@ -17,14 +19,10 @@ if @b.url.include? "/accounts/login/"
 	login = "pagoate"
 	senha = "123mudar@@"
 	hashtag = "skina"
-	# spans[7] = SEGUIDORES | # spans[8] = SEGUINDO
-	#@b.url == 'http://m.tiffany.com/Mobile/Default.aspx'
 	p @b.text_field(name: "username").present?
 	p @b.text_field(name: "password").present?
 	p @b.button(text: 'Entrar').present?
 	p "-------------"
-	p @b.link(text: "Profile").present?
-
 end
 p @b.url
 # controle = 0
@@ -39,10 +37,8 @@ end
 sleep 2
 #sleep 600
 p @b.link(text: "Profile").present?
-p @b.spans[6].text
 p @b.spans[7].text
 p @b.spans[8].text
-p @b.spans[9].text
 sleep 2
 # @b.spans[7].click
 # # sleep 3
