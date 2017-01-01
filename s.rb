@@ -21,32 +21,30 @@ if @b.url.include? "/accounts/login/"
 	#@b.url == 'http://m.tiffany.com/Mobile/Default.aspx'
 	p @b.text_field(name: "username").present?
 	p @b.text_field(name: "password").present?
-	p @b.button(text: 'Log in').present?
+	p @b.button(text: 'Entrar').present?
+	p "-------------"
+	p @b.link(text: "Profile").present?
 
-	@b.text_field(name: "username").set login
-	@b.text_field(name: "password").set senha
-	sleep 2
-	@b.button(text: 'Log in').click
 end
 p @b.url
 # controle = 0
 # numero = 1
 # sleep 2
-# begin
-# 	@b.goto "https://www.instagram.com/#{hashtag}/"
-# 	sleep 1
-# rescue
-# 	p "Falha ao Abrir Perfil"
-# end
-# sleep 2
-# #sleep 600
-# p @b.link(text: "Profile").present?
-# p @b.spans[6].text
-# p @b.spans[7].text
-# p @b.spans[8].text
-# p @b.spans[9].text
-# sleep 2
-# # @b.spans[7].click
+begin
+	@b.goto "https://www.instagram.com/#{hashtag}/"
+	sleep 1
+rescue
+	p "Falha ao Abrir Perfil"
+end
+sleep 2
+#sleep 600
+p @b.link(text: "Profile").present?
+p @b.spans[6].text
+p @b.spans[7].text
+p @b.spans[8].text
+p @b.spans[9].text
+sleep 2
+# @b.spans[7].click
 # # sleep 3
 # # if @b.button(text: "Follow").present?
 # # 	@b.button(text: "Follow").click
