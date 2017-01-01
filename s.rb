@@ -1,6 +1,6 @@
 require 'watir-webdriver'
 require 'webdriver-user-agent'
-require 'phantomjs'
+#require 'phantomjs'
 #driver = Webdriver::UserAgent.driver(:browser => :chrome, :agent => :iphone, :orientation => :landscape)
 driver = Webdriver::UserAgent.driver(:browser => :chrome, :agent => :iphone)
 b = Watir::Browser.new driver
