@@ -19,12 +19,15 @@ if @b.url.include? "/accounts/login/"
 	login = "pagoate"
 	senha = "123mudar@@"
 	hashtag = "skina"
-	p @b.text_field(name: "username").present?
-	p @b.text_field(name: "password").present?
-	p @b.button(text: 'Entrar').present?
+	@b.text_field(name: "username").set login
+	@b.text_field(name: "password").set senha
+	@b.button(text: 'Log in').click
+	sleep 5
 	p "-------------"
 end
 p @b.url
+p @b.link(text: "Profile").present?
+
 # controle = 0
 # numero = 1
 # sleep 2
