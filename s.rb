@@ -12,8 +12,9 @@ Watir.default_timeout = 90
 @b.goto 'https://www.instagram.com/explore/skina'
 sleep 5
 p @b.url
-@b.strong(text: "Log in").present?
-
+p @b.strong(text: "Log in").present?
+p @b.link(text: "Log in").present?
+p @b.link(href: "/accounts/login/").present?
 
 
 
