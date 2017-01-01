@@ -12,15 +12,14 @@ Watir.default_timeout = 90
 @b.goto 'https://www.instagram.com/explore/skina'
 sleep 5
 p @b.url
-#p @b.strong(text: "Log in").present?
 @b.link(text: "Log in").click
-#p @b.link(href: "/accounts/login/").present?
 sleep 5
 p @b.url
-html = @b.html
-html.links.each do |link|
-  p link.text
+if @b.link(text: "Log in").present?
+	@b.link(text: "Log in").click
+	p "sim"
 end
+
 
 
 
