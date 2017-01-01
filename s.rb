@@ -2,7 +2,7 @@ require 'watir-webdriver'
 #require 'phantomjs'
 # spans[7] = SEGUIDORES | # spans[8] = SEGUINDO
 
-@b = Watir::Browser.new :phantomjs
+@b = Watir::Browser.new
 Watir.default_timeout = 90
 #@b.window.maximize
 
@@ -19,30 +19,28 @@ if @b.url.include? "/accounts/login/"
 	login = "pagoate"
 	senha = "123mudar@@"
 	hashtag = "skina"
-	@b.text_field(name: "username").set login
-	@b.text_field(name: "password").set senha
-	@b.button(text: 'Log in').click
-	sleep 5
+	@b.span(text: "Log in as #{login}").present?
+	@b.button(text: "Log in as #{login}").present?
 	p "-------------"
 end
 p @b.url
 p @b.link(text: "Profile").present?
-
-# controle = 0
-# numero = 1
+#
+# # controle = 0
+# # numero = 1
+# # sleep 2
+# begin
+# 	@b.goto "https://www.instagram.com/#{hashtag}/"
+# 	sleep 1
+# rescue
+# 	p "Falha ao Abrir Perfil"
+# end
 # sleep 2
-begin
-	@b.goto "https://www.instagram.com/#{hashtag}/"
-	sleep 1
-rescue
-	p "Falha ao Abrir Perfil"
-end
-sleep 2
-#sleep 600
-p @b.link(text: "Profile").present?
-p @b.spans[7].text
-p @b.spans[8].text
-sleep 2
+# #sleep 600
+# p @b.link(text: "Profile").present?
+# p @b.spans[7].text
+# p @b.spans[8].text
+# sleep 2
 # @b.spans[7].click
 # # sleep 3
 # # if @b.button(text: "Follow").present?
