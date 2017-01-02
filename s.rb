@@ -1,7 +1,8 @@
 require 'watir-webdriver'
 
 b = Watir::Browser.new :phantomjs
-b.goto "http://instagram.com/accounts/login"
+
+b.goto "https://www.instagram.com/accounts/login/?hl=pt-br"
 
 sleep 7
 body = b.body
@@ -11,12 +12,9 @@ body.text_fields.each do |text_field|
 end
 
 if b.url.include? "accounts/login"
-	sleep 4
-	p "If"
-  b.text_fields[0].set 'capsluuk'
-  b.text_fields[1].set 'analima'
-	sleep 2
-  b.button(:value => 'Submit').click
+  b.text_field(name: "username").set "capsluuk"
+  b.text_field(name: "password").set "analima"
+  b.button(text: "Entrar").click
   sleep 7
 end
 p b.url
