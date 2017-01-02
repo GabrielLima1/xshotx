@@ -2,11 +2,11 @@ require 'watir-webdriver'
 
 b = Watir::Browser.new :phantomjs
 
-b.goto "https://www.instagram.com/accounts/login/?hl=pt-br"
+b.goto "instagram.com"
 
-sleep 4
-b.text_fields(class: "_qy55y")[0].set "capsluuk"
-b.text_fields(class: "_qy55y")[1].set "analima"
-b.button(text: "Log in").click
+body = b.body
+body.text_fields.each do |text_field|
+  p text_field.name
+end
 sleep 7
 p b.url
