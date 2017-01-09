@@ -22,7 +22,7 @@ login_wpp = "admin"
 senha_wpp = "alma1505@12#12"
 
 login_email = "mistermattpulseiras"
-senha_email = "analima@123  "
+senha_email = "analima@123"
 
 links = []
 emails = []
@@ -42,13 +42,14 @@ Watir.default_timeout = 90
 sleep 2
 p "Login no WPP Feito"
 # FAZENDO LOGIN NO GMAIL
-@b.goto "gmail.com"
+@b.goto "mail.google.com"
 sleep 2
+p @b.url
 @b.text_field(name: "Email").set login_email
 @b.button(type: "submit").click
 sleep 2
 @b.text_field(name: "Passwd").set senha_email
-@b.button(text: "Fazer login").click
+@b.button(text: "Sign in").click
 sleep 2
 p "Login no Gmail Feito"
 while numero < 4
