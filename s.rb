@@ -44,7 +44,7 @@ p "Login no WPP Feito"
 #http://mistermattpulseiras.com.br/wp-admin/edit.php?s&post_status=wc-processing&post_type=shop_order&action=-1&m=201701&_customer_user&filter_action=Filtrar&paged=1&action2=-1
 
 @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?s&post_status=wc-processing&post_type=shop_order&action=-1&m=201701&_customer_user&filter_action=Filtrar&paged=#{numero}&action2=-1"
-sleep 2
+sleep 4
 p final = @b.span(class: "total-pages").text
 final = final.to_i
 
