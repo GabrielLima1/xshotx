@@ -44,7 +44,7 @@ p "Login no WPP Feito"
 #http://mistermattpulseiras.com.br/wp-admin/edit.php?s&post_status=wc-processing&post_type=shop_order&action=-1&m=201701&_customer_user&filter_action=Filtrar&paged=1&action2=-1
 
 @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?s&post_status=wc-processing&post_type=shop_order&action=-1&m=201701&_customer_user&filter_action=Filtrar&paged=#{numero}&action2=-1"
-sleep 4
+sleep 2
 p final = @b.span(class: "total-pages").text
 final = final.to_i
 
@@ -93,19 +93,14 @@ links.each do |link|
       data = data.gsub(" de ","/")
       mes = data.split("/")[1]
       data = data.gsub("#{mes}", month["#{mes}"])
-      mensagem = "O Pedido #{numero_pedido} foi APROVADO na Data #{data}".upcase
-      @b.textarea(name: "order_note"). set mensagem
-      @b.send_keys [:shift, :enter]
-      @b.send_keys [:shift, :enter]
-      @b.send_keys "#{nome},"
-      @b.send_keys [:shift, :enter]
-      @b.send_keys "#{mensagem_email}"
-      sleep 1
+      mensagem = "O Pedido #{numero_pedido} foi APROVADO na Data #{data}\n".upcase
+      @b.textarea(name: "order_note").set "#{mensagem} \n #{nome}, \n #{mensagem_email}"
+      sleep 2
       @b.select_list(name: 'order_note_type').select 'Nota para o cliente'
-      sleep 1
+      sleep 3
       @b.link(text: "Adicionar").click
       sleep 3
-      @b.textarea(name: "order_note"). set "Email Enviado!"
+      @b.textarea(name: "order_note").set "Email Enviado!"
       sleep 2
       @b.select_list(name: 'order_note_type').select 'Nota privada'
       sleep 1
