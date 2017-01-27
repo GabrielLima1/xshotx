@@ -21,6 +21,7 @@ senha_wpp = "alma1505@12#12"
 numero = 1
 ok = 0
 erro = 0
+links = []
 # FAZENDO LOGIN NO WPP
 @b = Watir::Browser.new :phantomjs
 Watir.default_timeout = 90
@@ -37,7 +38,7 @@ p "Login no WPP Feito"
 @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?post_status=wc-on-hold&post_type=shop_order&paged=#{numero}"
 sleep 2
 p final = @b.span(class: "total-pages").text
-final = final.to_i
+final = 3
 
 while numero <= final
   begin
