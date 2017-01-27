@@ -22,7 +22,7 @@ numero = 1
 ok = 0
 erro = 0
 # FAZENDO LOGIN NO WPP
-@b = Watir::Browser.new :chrome
+@b = Watir::Browser.new :phantomjs
 Watir.default_timeout = 90
 @b.window.maximize
 
