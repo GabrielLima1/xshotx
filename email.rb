@@ -37,7 +37,7 @@ p "Login no WPP Feito"
 @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?post_status=wc-on-hold&post_type=shop_order&paged=#{numero}"
 sleep 2
 p final = @b.span(class: "total-pages").text
-final = 3
+final = final.to_i
 
 while numero <= final
   begin
