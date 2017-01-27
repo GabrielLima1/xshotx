@@ -18,7 +18,8 @@ mensagem = "Status do pedido alterado de Processando para Aguardando."
 
 login_wpp = "admin"
 senha_wpp = "alma1505@12#12"
-numero = 1
+numero = gets.to_i
+final = gets.to_i
 ok = 0
 erro = 0
 links = []
@@ -34,11 +35,6 @@ Watir.default_timeout = 90
 sleep 2
 p "Login no WPP Feito"
 #http://mistermattpulseiras.com.br/wp-admin/edit.php?s&post_status=wc-processing&post_type=shop_order&action=-1&m=201701&_customer_user&filter_action=Filtrar&paged=1&action2=-1
-
-@b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?post_status=wc-on-hold&post_type=shop_order&paged=#{numero}"
-sleep 2
-p final = @b.span(class: "total-pages").text
-final = final.to_i
 
 while numero <= final
   @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?post_status=wc-on-hold&post_type=shop_order&paged=#{numero}"
