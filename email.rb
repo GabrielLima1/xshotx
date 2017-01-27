@@ -38,40 +38,33 @@ p "Login no WPP Feito"
 @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?post_status=wc-on-hold&post_type=shop_order&paged=#{numero}"
 sleep 2
 p final = @b.span(class: "total-pages").text
-final = 3
+final = final.to_i
 
 while numero <= final
-  begin
-    @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?post_status=wc-on-hold&post_type=shop_order&paged=#{numero}"
-    sleep 2
-    @b.links(text: "Visualizar").each do |link|
-      links << link.href
-    end
-    p links.length
-    numero += 1
-  rescue
+  @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?post_status=wc-on-hold&post_type=shop_order&paged=#{numero}"
+  sleep 2
+  @b.links(text: "Visualizar").each do |link|
+    links << link.href
   end
+  p links.length
+  numero += 1
 end
 p links.length
 
 links.each do |link|
-  begin
-    @b.goto link
-    sleep 3
-    div = @b.div(id: "order_data")
-    numero_pedido = div.h2s.first.text.gsub("Detalhes do Pedido ", "")
-    if @b.p(text: "Email Enviado!").present? && @b.p(text: "#{mensagem}").present?
-      ok += 1
-    elsif @b.p(text: "#{mensagem}").present?
-      p "Erro - #{numero_pedido}"
-      erro += 1
-      @b.textarea(name: "order_note").set "Email Enviado!"
-      sleep 2
-      @b.link(text: "Adicionar").click
-      sleep 2
-    end
-  rescue
-    p "Erro #{link}"
+  @b.goto link
+  sleep 3
+  div = @b.div(id: "order_data")
+  numero_pedido = div.h2s.first.text.gsub("Detalhes do Pedido ", "")
+  if @b.p(text: "Email Enviado!").present? && @b.p(text: "#{mensagem}").present?
+    ok += 1
+  elsif @b.p(text: "#{mensagem}").present?
+    p "Erro - #{numero_pedido}"
+    erro += 1
+    @b.textarea(name: "order_note").set "Email Enviado!"
+    sleep 2
+    @b.link(text: "Adicionar").click
+    sleep 2
   end
 end
 @b.close
