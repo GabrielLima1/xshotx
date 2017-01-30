@@ -45,8 +45,12 @@ p "Login no WPP Feito"
 
 @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?s&post_status=wc-processing&post_type=shop_order&action=-1&m=201701&_customer_user&filter_action=Filtrar&paged=#{numero}&action2=-1"
 sleep 2
-p final = @b.span(class: "total-pages").text
-final = final.to_i
+if  @b.span(class: "total-pages").present?
+  p final = @b.span(class: "total-pages").text
+  final = final.to_i
+else
+  p final = 1
+end  
 
 while numero <= final
   begin
