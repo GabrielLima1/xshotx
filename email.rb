@@ -29,6 +29,7 @@ Watir.default_timeout = 90
 @b.window.maximize
 
 @b.goto "http://mistermattpulseiras.com.br/wp-login.php"
+sleep 2
 @b.text_field(name: "log").set login_wpp
 @b.text_field(name: "pwd").set senha_wpp
 @b.button(type: "submit").click
@@ -48,20 +49,23 @@ end
 p links.length
 
 links.each do |link|
-  @b.goto link
-  sleep 3
-  div = @b.div(id: "order_data")
-  numero_pedido = div.h2s.first.text.gsub("Detalhes do Pedido ", "")
-  if @b.p(text: "Email Enviado!").present? && @b.p(text: "#{mensagem}").present?
-    ok += 1
-  elsif @b.p(text: "#{mensagem}").present?
-    p "Erro - #{numero_pedido}"
-    erro += 1
-    @b.textarea(name: "order_note").set "Email Enviado!"
-    sleep 2
-    @b.link(text: "Adicionar").click
-    sleep 2
-  end
+  begin
+    @b.goto link
+    sleep 3
+    div = @b.div(id: "order_data")
+    numero_pedido = div.h2s.first.text.gsub("Detalhes do Pedido ", "")
+    if @b.p(text: "Email Enviado!").present? && @b.p(text: "#{mensagem}").present?
+      ok += 1
+    elsif @b.p(text: "#{mensagem}").present?
+      p "Erro - #{numero_pedido}"
+      erro += 1
+      @b.textarea(name: "order_note").set "Email Enviado!"
+      sleep 2
+      @b.link(text: "Adicionar").click
+      sleep 2
+    end
+  rescue
+    p "Erro link: #{@b.url}"
 end
 @b.close
 p "Terminei"

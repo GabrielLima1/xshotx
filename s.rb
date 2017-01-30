@@ -31,7 +31,7 @@ month = { "janeiro" => "01", "fevereiro" => "02", "março" => "03", "abril" => "
 p "Aguarde..."
 
 # FAZENDO LOGIN NO WPP
-@b = Watir::Browser.new :phantomjs
+@b = Watir::Browser.new :chrome
 Watir.default_timeout = 90
 @b.window.maximize
 
@@ -45,12 +45,12 @@ p "Login no WPP Feito"
 
 @b.goto "http://mistermattpulseiras.com.br/wp-admin/edit.php?s&post_status=wc-processing&post_type=shop_order&action=-1&m=201701&_customer_user&filter_action=Filtrar&paged=#{numero}&action2=-1"
 sleep 2
-if  @b.span(class: "total-pages").present?
+if @b.span(class: "total-pages").present?
   p final = @b.span(class: "total-pages").text
   final = final.to_i
 else
   p final = 1
-end  
+end
 
 while numero <= final
   begin
@@ -98,18 +98,16 @@ links.each do |link|
       mes = data.split("/")[1]
       data = data.gsub("#{mes}", month["#{mes}"])
       mensagem = "O Pedido #{numero_pedido} foi APROVADO na Data #{data}\n".upcase
+      @b.textarea(name: "order_note").set "Email Enviado!"
+      sleep 1
+      @b.link(text: "Adicionar").click
+      sleep 4
       @b.textarea(name: "order_note").set "#{mensagem} \n #{nome}, \n #{mensagem_email}"
       sleep 2
       @b.select_list(name: 'order_note_type').select 'Nota para o cliente'
       sleep 3
       @b.link(text: "Adicionar").click
-      sleep 3
-      @b.textarea(name: "order_note").set "Email Enviado!"
-      sleep 2
-      @b.select_list(name: 'order_note_type').select 'Nota privada'
-      sleep 1
-      @b.link(text: "Adicionar").click
-      sleep 2
+      sleep 6
       @b.send_keys :home
       sleep 2
       @b.button(text: "Salvar Pedido").click
