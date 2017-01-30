@@ -31,7 +31,7 @@ month = { "janeiro" => "01", "fevereiro" => "02", "março" => "03", "abril" => "
 p "Aguarde..."
 
 # FAZENDO LOGIN NO WPP
-@b = Watir::Browser.new :chrome
+@b = Watir::Browser.new :phantomjs
 Watir.default_timeout = 90
 @b.window.maximize
 

@@ -66,6 +66,7 @@ links.each do |link|
     end
   rescue
     p "Erro link: #{@b.url}"
+  end
 end
 @b.close
 p "Terminei"
