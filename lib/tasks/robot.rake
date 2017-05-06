@@ -3,7 +3,7 @@
 namespace :robot do
   desc "Run Robot Send Message"
   task send: :environment do
-	@b = Watir::Browser.new :chrome
+	@b = Watir::Browser.new :phantomjs
 	Watir.default_timeout = 90
 	@b.window.maximize
 	@agent = Mechanize.new
@@ -89,7 +89,7 @@ namespace :robot do
                       else
                         #salve somente o usuario
                         @b.button(text: "Iniciar chat").click
-                        sleep 1
+                        sleep 2
                         if @b.p(text: "Esse usuário não pode mais receber mensagens.").present?
                           p "Pulando Já Feito!"
                           @log.pulados += 1
@@ -111,7 +111,7 @@ namespace :robot do
                       end
                     else
                       @b.button(text: "Iniciar chat").click
-                      sleep 1
+                      sleep 2
                       if @b.p(text: "Esse usuário não pode mais receber mensagens.").present?
                         p "Pulando Já Feito!"
                         @log.pulados += 1
