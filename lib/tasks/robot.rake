@@ -3,14 +3,14 @@
 namespace :robot do
   desc "Run Robot Send Message"
   task send: :environment do
-	@b = Watir::Browser.new :phantomjs
+	@b = Watir::Browser.new :chrome
 	Watir.default_timeout = 90
 	@b.window.maximize
 	@agent = Mechanize.new
 	if Account.all.length == 0
 		p "Sem contas para fazer o Robo"
 	else
-    robots = Robot.where(status: false).where.not(name: ["Robo de Teste","Robo MM1","Robo MM2","Robo MM3","Robo MM4","Robo MM5","Robo MM6","Robo MM7","Robo MM8","Robo MM9","Robo MM10"]) || []
+    robots = Robot.where(status: false).where(name: ["Robo de Compro","Robo de Procuro","Robo de Compramos","Robo de Quero Comprar"]) || []
     robots.find_each do |robot| # robot laço
       if robot.page_number == 0
         robot.page_number = robot.page_start
@@ -58,32 +58,28 @@ namespace :robot do
                 num_G += 1
               else
                 p "Chat Verificado!"
-                @b.goto "http://www.olx.com.br/brasil?o=#{num_G}&ot=1&q=#{robot.search}+#{nao}"
+                page = @agent.get("http://www.olx.com.br/brasil?o=#{robot.page_number}&ot=1&q=#{robot.search}+#{nao}")
                 sleep 2
-                links =[]
-                @b.links(class: "OLXad-list-link").each do |link|
-                  if link.href.include? "olx.com.br"
-                    links << link.href
-                  end
-                end
-                links.each do |link|
+                page.links_with(:dom_class => "OLXad-list-link").each do |link|
                   begin
-                    @b.goto link
+                    @b.goto link.href
                     sleep 2
                     usuario = @b.li(class: "item owner mb10px ").text
                     divs = @b.div(class: "OLXad-location mb20px")
                     cep = divs.strong(:index, 1).text
                     ceps = @info.cep.split("|")
                     usuarios = @info.usuario.split("|")
+
                     if @b.link(text: "Minha conta").visible?
                       @b.goto "https://www3.olx.com.br/account/do_logout"
                       @b.text_field(id: 'login_email').set conta.email #preencher
                       @b.text_field(id: 'login_password').set conta.password #preencher
                       @b.button(type: 'submit').click
                       sleep 1
-                      @b.goto link
+                      @b.goto link.href
                       sleep 2
                     end
+
                     sleep 1
                     if ceps.include? cep
                       if usuarios.include? usuario
@@ -106,6 +102,7 @@ namespace :robot do
                           @info.usuario = @info.usuario+"|#{usuario}"
                           @info.save
                           @b.textarea(name: 'message').when_present.set robot.type.message #preencher
+                          sleep 1
                           @b.button(text: "Enviar").click
                           p "Feito"
                           @log.done_chat += 1
@@ -128,6 +125,7 @@ namespace :robot do
                         @info.usuario = @info.usuario+"|#{usuario}"
                         @info.save
                         @b.textarea(name: 'message').when_present.set robot.type.message #preencher
+                        sleep 1
                         @b.button(text: "Enviar").click
                         p "Feito"
                         @log.done_chat += 1

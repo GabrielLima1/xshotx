@@ -31,7 +31,7 @@ month = { "janeiro" => "01", "fevereiro" => "02", "março" => "03", "abril" => "
 p "Aguarde..."
 
 # FAZENDO LOGIN NO WPP
-@b = Watir::Browser.new :phantomjs
+@b = Watir::Browser.new :chrome
 Watir.default_timeout = 90
 @b.window.maximize
 
@@ -84,7 +84,12 @@ links.each do |link|
       @b.links(text: "Editar").first.click
       sleep 1
       nome = @b.text_field(id: "_billing_first_name").value
-      @b.refresh
+      sleep 1
+      @b.textarea(name: "order_note").set "Email Enviado!"
+      sleep 1
+      @b.link(text: "Adicionar").click
+      sleep 3
+      @b.goto link
       sleep 2
       @b.span(text: "Processando").click
       sleep 2
@@ -98,9 +103,6 @@ links.each do |link|
       mes = data.split("/")[1]
       data = data.gsub("#{mes}", month["#{mes}"])
       mensagem = "O Pedido #{numero_pedido} foi APROVADO na Data #{data}\n".upcase
-      @b.textarea(name: "order_note").set "Email Enviado!"
-      sleep 1
-      @b.link(text: "Adicionar").click
       sleep 4
       @b.textarea(name: "order_note").set "#{mensagem} \n #{nome}, \n #{mensagem_email}"
       sleep 2
@@ -114,6 +116,7 @@ links.each do |link|
       sleep 6
     end
   rescue
+    p "Erro - Link: #{@b.url}"
   end
 end
 @b.close
