@@ -32,6 +32,7 @@ namespace :robot do
           num_G = robot.page_number
 
           while num_P < num_G
+            
             conta = Account.where(status_message: false).first
 
             @b.goto "https://www3.olx.com.br/account/do_logout"
