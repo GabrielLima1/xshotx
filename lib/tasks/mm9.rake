@@ -6,10 +6,10 @@ namespace :mm9 do
 	Watir.default_timeout = 90
 	@b.window.maximize
   sleep 2
-  conta = Account.where(status_message: false).first
+  #conta = Account.where(status_message: false).first
 	@b.goto "https://www3.olx.com.br/account/do_logout"
-  @b.text_field(id: 'login_email').set conta.email #preencher
-  @b.text_field(id: 'login_password').set conta.password#preencher
+  @b.text_field(id: 'login_email').set "gabriellimatrajano@hotmail.com" #preencher
+  @b.text_field(id: 'login_password').set "analima@123" #preencher
   @b.button(type: 'submit').click
   sleep 2
   @b.goto "http://sp.olx.com.br/sao-paulo-e-regiao/bebes-e-criancas/roupa-usada-de-bebe-336297678"
