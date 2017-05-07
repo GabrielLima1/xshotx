@@ -17,9 +17,11 @@ namespace :mm9 do
   if @b.div(id: "container_not_logged").present?
     p "Bugada!"
   end
+  sleep 3
   @b.button(class: "btn btn-large btn-start-chat btn-orange").click
-  sleep 2
-  @b.textarea(name: 'message').set "Teste Server!" #preencher
+  sleep 3
+  @b.textarea(name: 'message').set "Teste Server!- Pt.2" #preencher
+  sleep 3
   @b.button(text: "Enviar").click
   sleep 2
   p "Feito"
