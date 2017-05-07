@@ -14,9 +14,9 @@ namespace :mm9 do
   sleep 2
   @b.goto "http://sp.olx.com.br/sao-paulo-e-regiao/bebes-e-criancas/roupa-usada-de-bebe-336297678"
   sleep 2
-  @b.button(text: "Iniciar chat").click
+  @b.button(class: "btn btn-large btn-start-chat btn-orange").click
   sleep 2
-  @b.textarea(name: 'message').when_present.set "Teste Local!" #preencher
+  @b.textarea(name: 'message').set "Teste Server!" #preencher
   @b.button(text: "Enviar").click
   sleep 2
   p "Feito"
