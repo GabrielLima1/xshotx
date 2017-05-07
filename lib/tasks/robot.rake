@@ -3,10 +3,6 @@
 namespace :robot do
   desc "Run Robot Send Message"
   task send: :environment do
-	@b = Watir::Browser.new :phantomjs
-	Watir.default_timeout = 90
-	@b.window.maximize
-	@agent = Mechanize.new
 	if Account.all.length == 0
 		p "Sem contas para fazer o Robo"
 	else
@@ -24,6 +20,8 @@ namespace :robot do
       end
       @info = Information.find_by_robot_id(robot.id)
       @log = RobotLog.find_by_robot_id(robot.id)
+      @log.message = "Executando Robô!"
+      @log.save
       while robot.status == false
         #break
         begin
@@ -32,8 +30,12 @@ namespace :robot do
           num_G = robot.page_number
 
           while num_P < num_G
-            
             conta = Account.where(status_message: false).first
+
+            @b = Watir::Browser.new :phantomjs
+            Watir.default_timeout = 90
+            @b.window.maximize
+            @agent = Mechanize.new
 
             @b.goto "https://www3.olx.com.br/account/do_logout"
             @b.text_field(id: 'login_email').set conta.email #preencher
@@ -71,7 +73,8 @@ namespace :robot do
                     ceps = @info.cep.split("|")
                     usuarios = @info.usuario.split("|")
 
-                    if @b.link(text: "Minha conta").visible?
+                    if @b.div(id: "container_not_logged").present?
+
                       @b.goto "https://www3.olx.com.br/account/do_logout"
                       @b.text_field(id: 'login_email').set conta.email #preencher
                       @b.text_field(id: 'login_password').set conta.password #preencher
@@ -89,8 +92,12 @@ namespace :robot do
                         @log.save
                       else
                         #salve somente o usuario
-                        @b.button(text: "Iniciar chat").click
+                        sleep 3
+                        @b.button(class: "btn btn-large btn-start-chat btn-orange").click
                         sleep 2
+                        while @b.span(class: "wss-text").present?
+                          sleep 1
+                        end
                         if @b.p(text: "Esse usuário não pode mais receber mensagens.").present?
                           p "Pulando Já Feito!"
                           @log.pulados += 1
@@ -102,7 +109,7 @@ namespace :robot do
                         else
                           @info.usuario = @info.usuario+"|#{usuario}"
                           @info.save
-                          @b.textarea(name: 'message').when_present.set robot.type.message #preencher
+                          @b.textarea(name: 'message').set robot.type.message #preencher
                           sleep 1
                           @b.button(text: "Enviar").click
                           p "Feito"
@@ -111,8 +118,12 @@ namespace :robot do
                         end
                       end
                     else
-                      @b.button(text: "Iniciar chat").click
+                      sleep 3
+                      @b.button(class: "btn btn-large btn-start-chat btn-orange").click
                       sleep 2
+                      while @b.span(class: "wss-text").present?
+                        sleep 1
+                      end
                       if @b.p(text: "Esse usuário não pode mais receber mensagens.").present?
                         p "Pulando Já Feito!"
                         @log.pulados += 1
@@ -125,7 +136,7 @@ namespace :robot do
                         @info.cep = @info.cep+"|#{cep}"
                         @info.usuario = @info.usuario+"|#{usuario}"
                         @info.save
-                        @b.textarea(name: 'message').when_present.set robot.type.message #preencher
+                        @b.textarea(name: 'message').set robot.type.message #preencher
                         sleep 1
                         @b.button(text: "Enviar").click
                         p "Feito"
@@ -138,6 +149,7 @@ namespace :robot do
                     p "Falha ao entrar no Link do Anuncio..."
                     @log.fail_chat += 1
                     @log.save
+                    break
                   end#end rescue
                 end #end do each do mechanize PAGE
               end #else chat verificado
@@ -150,10 +162,6 @@ namespace :robot do
             robot.save
             @log.save
             @b.close
-            sleep 2
-            @b = Watir::Browser.new :phantomjs
-            Watir.default_timeout = 90
-            @b.window.maximize
           end #end do else status_message
           end#end do while num_P e num_G
           robot.status = true
@@ -164,12 +172,7 @@ namespace :robot do
           @log.message = "#{robot.name} Feito da Pagina: #{robot.page_finish} até #{robot.page_start}, Data: #{hora}"
           @log.save
         rescue Net::ReadTimeout
-          @b.close
-          sleep 2
-          @b = Watir::Browser.new :phantomjs
-          Watir.default_timeout = 90
-          @b.window.maximize
-          p "Time"
+          break
         end
       end #end do while robot.status
     end #end do robot_each
