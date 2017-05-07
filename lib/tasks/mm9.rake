@@ -14,6 +14,9 @@ namespace :mm9 do
   sleep 2
   @b.goto "http://sp.olx.com.br/sao-paulo-e-regiao/bebes-e-criancas/roupa-usada-de-bebe-336297678"
   sleep 2
+  if @b.div(id: "container_not_logged").present?
+    p "Bugada!"
+  end
   @b.button(class: "btn btn-large btn-start-chat btn-orange").click
   sleep 2
   @b.textarea(name: 'message').set "Teste Server!" #preencher
