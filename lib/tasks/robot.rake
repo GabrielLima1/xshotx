@@ -1,5 +1,5 @@
 #encoding: utf-8
-namespace :robott do
+namespace :robot do
   desc "Run Robot Send Message"
   task send: :environment do
     if Account.all.length == 0
@@ -19,7 +19,7 @@ namespace :robott do
         end
         @info = Information.find_by_robot_id(robot.id)
         @log = RobotLog.find_by_robot_id(robot.id)
-        @log.message = "Exec"
+        @log.message = "Executando o Robô!"
         while robot.status == false
           #break
           num_P = robot.page_finish
