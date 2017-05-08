@@ -61,11 +61,15 @@ namespace :robot do
                 num_G += 1
               else
                 p "Chat Verificado!"
-                page = @agent.get("http://www.olx.com.br/brasil?o=#{robot.page_number}&ot=1&q=#{robot.search}+#{nao}")
-                sleep 2
-                page.links_with(:dom_class => "OLXad-list-link").each do |link|
+                links =[]
+                @b.links(class: "OLXad-list-link").each do |link|
+                  if link.href.include? "olx.com.br"
+                    links << link.href
+                  end
+                end
+                links.each do |link|
                   begin
-                    @b.goto link.href
+                    @b.goto link
                     sleep 2
                     usuario = @b.li(class: "item owner mb10px ").text
                     divs = @b.div(class: "OLXad-location mb20px")
@@ -80,7 +84,7 @@ namespace :robot do
                       @b.text_field(id: 'login_password').set conta.password #preencher
                       @b.button(type: 'submit').click
                       sleep 1
-                      @b.goto link.href
+                      @b.goto link
                       sleep 2
                     end
 
@@ -149,7 +153,8 @@ namespace :robot do
                     p "Falha ao entrar no Link do Anuncio..."
                     @log.fail_chat += 1
                     @log.save
-                    break
+                    sleep 2
+                    @b.close
                   end#end rescue
                 end #end do each do mechanize PAGE
               end #else chat verificado
