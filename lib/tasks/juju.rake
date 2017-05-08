@@ -1,13 +1,14 @@
 #encoding: utf-8
-namespace :robot do
+namespace :juju do
   desc "Run Robot Send Message"
   task send: :environment do
     if Account.all.length == 0
       p "Sem contas para fazer o Robo"
     else
-      robots = Robot.where(status: false).where(name: ["Robo de Compro","Robo de Procuro","Robo de Compramos","Robo de Quero Comprar"]) || []
+      robots = Robot.where(name: ["Robo Juju"]) || []
       robots.find_each do |robot| # robot laço
-        if robot.page_number == 0
+        if robot.automatic && robot.status
+          robot.status = false
           robot.page_number = robot.page_start
           robot.save
         end
@@ -59,7 +60,7 @@ namespace :robot do
                 num_G += 1
               else
                 p "Chat Verificado!"
-                page = @agent.get("http://www.olx.com.br/brasil?o=#{robot.page_number}&ot=1&q=#{robot.search}+#{nao}")
+                page = @agent.get("http://www.olx.com.br/brasil?o=#{robot.page_number}")
                 sleep 2
                 page.links_with(:dom_class => "OLXad-list-link").each do |link|
                   begin
@@ -144,9 +145,6 @@ namespace :robot do
         end #end do while robot.status
       end #end do robot_each
     end # end do account.all verificação se a contas disponivel
-    @b.close
     p "Fim Robot"
-    p "...Iniciando Scheduler"
-    Rake::Task['scheduler'].execute
   end
 end
