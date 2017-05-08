@@ -18,7 +18,7 @@ namespace :pago do
         else
           nao = robot.nosearch.gsub(",","+NÃO").gsub(" ","+").gsub("  ","+").insert(0, 'NÃO+')
         end
-        @info = Information.find_by_robot_id(robot.id)
+        @info = Information.find_by_robot_id(1)
         @log = RobotLog.find_by_robot_id(robot.id)
         @log.message = "Executando o Robô!"
         while robot.status == false

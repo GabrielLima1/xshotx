@@ -18,7 +18,7 @@ namespace :juju do
         else
           nao = robot.nosearch.gsub(",","+NÃO").gsub(" ","+").gsub("  ","+").insert(0, 'NÃO+')
         end
-        @info = Information.find_by_robot_id(robot.id)
+        @info = Information.find_by_robot_id(1)
         @log = RobotLog.find_by_robot_id(robot.id)
         @log.message = "Executando o Robô!"
         while robot.status == false
@@ -60,7 +60,7 @@ namespace :juju do
                 num_G += 1
               else
                 p "Chat Verificado!"
-                page = @agent.get("http://www.olx.com.br/brasil?o=#{robot.page_number}")
+                page = @agent.get("http://www.olx.com.br/bijouteria-relogios-e-acessorios?o=#{robot.page_number}")
                 sleep 2
                 page.links_with(:dom_class => "OLXad-list-link").each do |link|
                   begin
