@@ -3,6 +3,10 @@
 namespace :robot do
   desc "Run Robot Send Message"
   task send: :environment do
+	@b = Watir::Browser.new :phantomjs
+	Watir.default_timeout = 90
+	@b.window.maximize
+	@agent = Mechanize.new
 	if Account.all.length == 0
 		p "Sem contas para fazer o Robo"
 	else
@@ -20,8 +24,7 @@ namespace :robot do
       end
       @info = Information.find_by_robot_id(robot.id)
       @log = RobotLog.find_by_robot_id(robot.id)
-      @log.message = "Executando Robô!"
-      @log.save
+      @log.message = "Exec"
       while robot.status == false
         #break
         begin
@@ -30,12 +33,8 @@ namespace :robot do
           num_G = robot.page_number
 
           while num_P < num_G
-            conta = Account.where(status_message: false).first
 
-            @b = Watir::Browser.new :phantomjs
-            Watir.default_timeout = 90
-            @b.window.maximize
-            @agent = Mechanize.new
+            conta = Account.where(status_message: false).first
 
             @b.goto "https://www3.olx.com.br/account/do_logout"
             @b.text_field(id: 'login_email').set conta.email #preencher
@@ -61,15 +60,11 @@ namespace :robot do
                 num_G += 1
               else
                 p "Chat Verificado!"
-                links =[]
-                @b.links(class: "OLXad-list-link").each do |link|
-                  if link.href.include? "olx.com.br"
-                    links << link.href
-                  end
-                end
-                links.each do |link|
+                page = @agent.get("http://www.olx.com.br/brasil?o=#{robot.page_number}&ot=1&q=#{robot.search}+#{nao}")
+                sleep 2
+                page.links_with(:dom_class => "OLXad-list-link").each do |link|
                   begin
-                    @b.goto link
+                    @b.goto link.href
                     sleep 2
                     usuario = @b.li(class: "item owner mb10px ").text
                     divs = @b.div(class: "OLXad-location mb20px")
@@ -84,7 +79,7 @@ namespace :robot do
                       @b.text_field(id: 'login_password').set conta.password #preencher
                       @b.button(type: 'submit').click
                       sleep 1
-                      @b.goto link
+                      @b.goto link.href
                       sleep 2
                     end
 
@@ -153,8 +148,7 @@ namespace :robot do
                     p "Falha ao entrar no Link do Anuncio..."
                     @log.fail_chat += 1
                     @log.save
-                    sleep 2
-                    @b.close
+                    break
                   end#end rescue
                 end #end do each do mechanize PAGE
               end #else chat verificado
