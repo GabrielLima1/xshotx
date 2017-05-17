@@ -34,7 +34,7 @@ namespace :mister do
             @b = Watir::Browser.new :phantomjs
             Watir.default_timeout = 60
             @b.window.maximize
-            @agent = Mechanize.new
+            @age = Mechanize.new
             sleep 2
             @b.goto "https://www3.olx.com.br/account/do_logout"
             @b.text_field(id: 'login_email').set conta.email #preencher
@@ -60,7 +60,7 @@ namespace :mister do
                 num_G += 1
               else
                 p "Chat Verificado!"
-                page = @agent.get("http://www.olx.com.br/bijouteria-relogios-e-acessorios?o=#{robot.page_number}")
+                page = @age.get("http://www.olx.com.br/bijouteria-relogios-e-acessorios?o=#{robot.page_number}")
                 sleep 2
                 page.links_with(:dom_class => "OLXad-list-link").each do |link|
                   begin
